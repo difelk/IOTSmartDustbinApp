@@ -1,0 +1,30 @@
+{
+    "batteryUsage": [
+      {
+        "id": 1,
+        "timestamp": "2023-11-09T08:00:00Z",
+        "percentage": 78
+      },
+      {
+        "id": 2,
+        "timestamp": "2023-11-09T10:30:00Z",
+        "percentage": 65
+      },
+      {
+        "id": 3,
+        "timestamp": "2023-11-09T12:45:00Z",
+        "percentage": 52
+      },
+      {
+        "id": 4,
+        "timestamp": "2023-11-09T15:20:00Z",
+        "percentage": 40
+      },
+      {
+        "id": 5,
+        "timestamp": "2023-11-09T18:10:00Z",
+        "percentage": 28
+      }
+    ]
+  }
+  
