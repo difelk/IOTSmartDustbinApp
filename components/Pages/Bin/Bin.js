@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text} from "react-native";
 import BinStyle from "./BinStyle";
 import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
 
 
 
@@ -9,6 +10,7 @@ export default function Bin() {
 
 
   return (
+    <>
     <View style={BinStyle.mainWrapper}>
       <Header />
       <View>
@@ -64,5 +66,7 @@ export default function Bin() {
         </View>
       </View>
     </View>
+        <Footer />
+        </>
   );
 }

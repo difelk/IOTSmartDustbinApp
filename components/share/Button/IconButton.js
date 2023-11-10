@@ -11,9 +11,10 @@ const IconButton = ({
   width,
   height,
   btnSize,
+  btnType,
 }) => {
   let buttonClass = ButtonStyle.primaryBtn;
-//   let buttonbkgClass = ButtonStyle.bkgWhite;
+  //   let buttonbkgClass = ButtonStyle.bkgWhite;
   switch (btnSize) {
     case "LG":
       buttonClass = ButtonStyle.iconBtnLg;
@@ -26,11 +27,32 @@ const IconButton = ({
       break;
   }
 
+  switch (btnType) {
+    case "LID":
+      buttonClass = ButtonStyle.lidBtn;
+      break;
+    case "BATTERY":
+      buttonClass = ButtonStyle.batteryBtn;
+      break;
+    case "BIN":
+      buttonClass = ButtonStyle.binBtn;
+      break;
+    case "SETTINGS":
+      buttonClass = ButtonStyle.settingsBtn;
+      break;
+    case "ABOUT":
+      buttonClass = ButtonStyle.aboutBtn;
+      break;
+    case "LOGOUT":
+      buttonClass = ButtonStyle.logoutBtn;
+      break;
+  }
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={buttonClass}>
         <Image source={buttonIcon} style={{ width: width, height: height }} />
-        <Text style={{ color: txtColor }}>{buttonText}</Text>
+        <Text style={btnType === 'LID' ? { color: txtColor} : { color: txtColor  }}>{buttonText}</Text>
       </View>
     </TouchableOpacity>
   );

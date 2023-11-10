@@ -2,9 +2,11 @@ import React from "react";
 import { View, Text } from "react-native";
 import BatteryStyle from "./BatteryStyle";
 import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
 
 export default function Battery() {
   return (
+    <>
     <View style={BatteryStyle.mainWrapper}>
       <Header />
       <View>
@@ -58,9 +60,9 @@ export default function Battery() {
             <Text>25%</Text>
           </View>
         </View>
-
-
       </View>
     </View>
+        <Footer />
+        </>
   );
 }

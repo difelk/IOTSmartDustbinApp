@@ -21,7 +21,7 @@ export default function Header() {
         <View>
           <MyButton
             onPress={handleOnClick}
-            buttonText={"view profile"}
+            buttonText={"View Profile"}
             buttonType={"PRIMARY"}
           />
         </View>

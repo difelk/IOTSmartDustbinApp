@@ -1,19 +1,33 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import AboutStyle from "./AboutStyle";
 import Header from "../../Header/Header";
+import Footer from "../../Footer/Footer";
 
 export default function About() {
   return (
-    <View style={AboutStyle.mainWrapper}>
-      <Header />
-      <View>
-        <View style={AboutStyle.headerTxt}>
-          <Text style={AboutStyle.mainTitleTxt}>About</Text>
-        </View>
+    <>
+      <View style={styles.center}>
+        <Header />
+        <View>
+          <View style={styles.headerTxt}>
+            <Text>About</Text>
+          </View>
 
-        <View style={AboutStyle.headerSection}></View>
+          <View style={AboutStyle.headerSection}></View>
+        </View>
       </View>
-    </View>
+      <Footer />
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  center: {
+    alignItems: "center",
+    minHeight: "100%",
+  },
+  headerTxt: {
+    paddingTop: 30,
+  },
+});

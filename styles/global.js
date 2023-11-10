@@ -40,5 +40,8 @@ export default StyleSheet.create({
   },
   marginTop10:{
     marginTop:70,
+  },
+  mg20:{
+    marginTop: 0,
   }
 });
