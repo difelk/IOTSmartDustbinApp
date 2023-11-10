@@ -80,7 +80,7 @@ export default StyleSheet.create({
   },
 
   lidBtn: {
-    backgroundColor: "#3cb89b",
+    backgroundColor: "#FCD24B",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
