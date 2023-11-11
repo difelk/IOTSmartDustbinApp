@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: colors.backgroundColor1,
+    backgroundColor: '#81e5c7',
   },
   name: {
     color: colors.header1,

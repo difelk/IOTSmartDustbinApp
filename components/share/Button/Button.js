@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import ButtonStyle from './ButtonStyle';
 
 const MyButton = ({ onPress, buttonText, buttonType }) => {
-  const buttonStyles = buttonType === 'PRIMARY' ? ButtonStyle.primaryBtn : ButtonStyle.button;
-  const textStyles = buttonType === 'PRIMARY' ? ButtonStyle.primaryBtnText : ButtonStyle.buttonText;
+  const buttonStyles = buttonType === 'PRIMARY' ? ButtonStyle.primaryBtn : buttonType === 'LINK' ? ButtonStyle.link  : ButtonStyle.button;
+  const textStyles = buttonType === 'PRIMARY' ? ButtonStyle.primaryBtnText : buttonType === 'LINK' ? ButtonStyle.linkText :  ButtonStyle.buttonText;
 
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={buttonStyles}>
-        <Text style={ButtonStyle.primaryBtnText}>{buttonText}</Text>
+        <Text style={textStyles}>{buttonText}</Text>
       </View>
     </TouchableOpacity>
   );

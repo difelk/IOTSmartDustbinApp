@@ -80,7 +80,8 @@ export default StyleSheet.create({
   },
 
   lidBtn: {
-    backgroundColor: "#3cb89b",
+    // backgroundColor: "#39c2c1",
+    backgroundColor: "#1ed7ca",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -94,16 +95,16 @@ export default StyleSheet.create({
         shadowColor: "blue",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
-        shadowRadius: 8,
+        shadowRadius: 15,
       },
       android: {
         shadowColor: "green",
-        elevation: 20,
+        elevation: 25,
       },
     }),
   },
   batteryBtn: {
-    backgroundColor: "orange",
+    backgroundColor: "#f8ce30",
 
     display: "flex",
     flexDirection: "column",
@@ -127,7 +128,7 @@ export default StyleSheet.create({
     }),
   },
   binBtn: {
-    backgroundColor: "#61caf1",
+    backgroundColor: "#65e38f",
 
     display: "flex",
     flexDirection: "column",
@@ -152,7 +153,7 @@ export default StyleSheet.create({
   },
 
   settingsBtn: {
-    backgroundColor: "#a2d536",
+    backgroundColor: "#66b2fe",
 
     display: "flex",
     flexDirection: "column",
@@ -177,7 +178,7 @@ export default StyleSheet.create({
   },
 
   aboutBtn: {
-    backgroundColor: "#898cf2",
+    backgroundColor: "#ec6874",
 
     display: "flex",
     flexDirection: "column",
@@ -186,7 +187,6 @@ export default StyleSheet.create({
     width: 92,
     height: 92,
     borderRadius: 8,
-    
 
     ...Platform.select({
       ios: {
@@ -202,8 +202,58 @@ export default StyleSheet.create({
     }),
   },
 
+  link: {
+    backgroundColor: "unset",
+    borderColor: "none",
+    textAlign: 'right',
+    marginLeft: 20,
+  },
+
+  linkText: {
+    color: "#0ab86e",
+    fontWeight: "600",
+    fontSize: 16,
+    
+  },
+
+  notifyBtn: {
+    backgroundColor: "#bc6ef7",
+
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 92,
+    height: 92,
+    borderRadius: 8,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: "blue",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      },
+      android: {
+        shadowColor: "green",
+        elevation: 20,
+      },
+    }),
+  },
+
+  footerIconBtn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: '#5876edc4',
+  },
+
   logoutBtn: {
-    backgroundColor: "orange",
+    backgroundColor: "#80f45e",
 
     display: "flex",
     flexDirection: "column",
@@ -227,3 +277,4 @@ export default StyleSheet.create({
     }),
   },
 });
+
