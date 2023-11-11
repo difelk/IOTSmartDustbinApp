@@ -29,7 +29,7 @@ export default function Home() {
   const existIcon = require("../../assets/ExistIcon.png");
   // const mailIcon = require("../../assets/MailIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
-  const crdbkgrnd2 = require("../../assets/card9.jpg");
+  const crdbkgrnd2 = require("../../assets/card11.png");
 
   const navigation = useNavigation();
 
