@@ -19,7 +19,7 @@ export default StyleSheet.create({
 
   mainTitleTxt: {
     fontSize: 16,
-    color: '#413e6a8a',
+    color: '#ffffff',
     fontWeight: "600",
     marginTop: 16,
     marginBottom:16,
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   stripRuleTop:{
     width:260,
     borderBottomWidth: 1,
-    borderBottomColor: '#35335a26',
+    borderBottomColor: '#c6c6d457',
     borderStyle: 'solid',
     padding: 10,
     position: 'absolute',
@@ -38,7 +38,7 @@ export default StyleSheet.create({
   stripRuleBottom:{
     width:260,
     borderBottomWidth: 1,
-    borderBottomColor: '#35335a26',
+    borderBottomColor: '#c6c6d457',
     borderStyle: 'solid',
     padding: 10,
     position: 'absolute',
@@ -83,7 +83,7 @@ export default StyleSheet.create({
   servicesTex:{
       fontSize: 16,
       fontWeight:'600',
-      color: '#413e6a8a',
+      color: '#ffffff',
   },
   whiteTxt: {
     color: colors.white,

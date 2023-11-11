@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     ...Platform.select({
       android: {
-        elevation: 8,
+        elevation:20,
       },
       ios: {
         shadowColor: "#000",
