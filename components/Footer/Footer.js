@@ -4,13 +4,19 @@ import { View, Text, StyleSheet } from "react-native";
 export default function Footer() {
     return (
         <View style={styles.footer}>
-          <Text>Sticky Footer</Text>
+          <Text>Home Icon</Text>
+          <Text>Help</Text>
+          <Text>bug</Text>
         </View>
       );
     };
     
     const styles = StyleSheet.create({
         footer: {
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
           position: 'absolute',
           bottom: 0,
           left: 0,

@@ -18,12 +18,34 @@ export default StyleSheet.create({
   },
 
   mainTitleTxt: {
-    fontSize: 15,
-    color: colors.header2,
+    fontSize: 16,
+    color: '#413e6a8a',
     fontWeight: "600",
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 16,
+    marginBottom:16,
   },
+  stripRuleTop:{
+    width:260,
+    borderBottomWidth: 1,
+    borderBottomColor: '#35335a26',
+    borderStyle: 'solid',
+    padding: 10,
+    position: 'absolute',
+    right: 11,
+    top: 7,
+  },
+
+  stripRuleBottom:{
+    width:260,
+    borderBottomWidth: 1,
+    borderBottomColor: '#35335a26',
+    borderStyle: 'solid',
+    padding: 10,
+    position: 'absolute',
+    right: 5,
+    top: -7,
+  },
+  
   greenBox: {
     display: "flex",
     flexDirection: "row",
@@ -39,11 +61,11 @@ export default StyleSheet.create({
         shadowColor: "blue",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
-        shadowRadius: 8,
+        shadowRadius: 20,
       },
       android: {
-        shadowColor: "green",
-        elevation:10,
+        shadowColor: "black",
+        elevation:20,
       },
     }),
   },
@@ -53,6 +75,15 @@ export default StyleSheet.create({
     paddingBottom:50,
     height:100,
 
+  },
+  servicesTextWrapper:{
+    marginBottom: 20,
+    marginTop:5,
+  },
+  servicesTex:{
+      fontSize: 16,
+      fontWeight:'600',
+      color: '#413e6a8a',
   },
   whiteTxt: {
     color: colors.white,

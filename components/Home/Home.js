@@ -25,10 +25,11 @@ export default function Home() {
   const binOpenIcon = require("../../assets/BinOpenIcon.png");
   const settingIcon = require("../../assets/SettingIcon.png");
   const aboutIcon = require("../../assets/AboutIcon.png");
+  const notificationIcon = require("../../assets/mail.png");
   const existIcon = require("../../assets/ExistIcon.png");
   const mailIcon = require("../../assets/MailIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
-  const crdbkgrnd2 = require("../../assets/card5point5.png");
+  const crdbkgrnd2 = require("../../assets/card9.jpg");
 
   const navigation = useNavigation();
 
@@ -47,7 +48,7 @@ export default function Home() {
         <View style={global.container}>
         <ImageBackground
         source={crdbkgrnd2}
-        style={{ display: 'flex', flexDirection: 'column', width: '100%'}}
+        style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%'}}
       >
           <Header />
           <ScrollView>
@@ -55,7 +56,9 @@ export default function Home() {
               <View>
                 <View>
                   <Text style={HomeStyle.mainTitleTxt}>LID Control</Text>
+                  <View style={HomeStyle.stripRuleTop}></View>
                 </View>
+                <View style={{ margin: 5 }}></View>
                 <View style={HomeStyle.greenboxShadow}>
                   <ImageBackground
                     source={crdbkgrnd}
@@ -114,6 +117,14 @@ export default function Home() {
                 </View>
               </View>
 
+              <View style={
+                    HomeStyle.servicesTextWrapper}>
+                <Text style={HomeStyle.servicesTex}>My Services</Text>
+                <View style={HomeStyle.stripRuleBottom}></View>
+              </View>
+
+              <View style={{ margin: 10 }}></View>
+
               <View style={global.homeBtnsList}>
                 <View
                   style={[
@@ -156,10 +167,54 @@ export default function Home() {
                   />
                 </View>
               </View>
-
               <View style={{ margin: 10 }}></View>
 
-              <View
+              <View style={global.homeBtnsList}>
+                <View
+                  style={[
+                    global.display_Flx_dir_row_align_center,
+                    global.justify_between,
+                  ]}
+                >
+                  <IconButton
+                    onPress={() => handleComponentControlBtn("About")}
+                    buttonText={"ABOUT"}
+                    buttonIcon={aboutIcon}
+                    bgColor={"#1c7850"}
+                    txtColor={colors.white}
+                    width={55}
+                    height={55}
+                    btnSize={"LG"}
+                    btnType={"ABOUT"}
+                  />
+                  <IconButton
+                    onPress={() => handleComponentControlBtn("Bin")}
+                    buttonText={"Notification"}
+                    buttonIcon={notificationIcon}
+                    bgColor={"#1c7850"}
+                    txtColor={colors.white}
+                    width={55}
+                    height={55}
+                    btnSize={"LG"}
+                    btnType={"NOTIFICATION"}
+                  />
+                   <IconButton
+                    onPress={() => handleComponentControlBtn("Battery")}
+                    buttonText={"LOGOUT"}
+                    buttonIcon={existIcon}
+                    bgColor={"#1c7850"}
+                    txtColor={colors.white}
+                    width={55}
+                    height={55}
+                    btnSize={"LG"}
+                    // btnType={'LOGOUT'}
+                  />
+                </View>
+              </View>
+
+              {/* <View style={{ margin: 10 }}></View> */}
+
+              {/* <View
                 style={[
                   global.display_Flx_dir_row_align_center,
                   global.justify_between,
@@ -238,7 +293,8 @@ export default function Home() {
                         <MyButton
                           onPress={handleOnClick}
                           buttonText={"View All"}
-                          buttonType={"PRIMARY"}
+                          buttonType={"LINK"}
+
                         />
                       </View>
                     </View>
@@ -250,7 +306,7 @@ export default function Home() {
                       alignItems: "center",
 
                       width: "100%",
-                      backgroundColor: "#DCDADA",
+                      backgroundColor: "#6749de",
                       borderRadius: 10,
                       padding: 8,
                       marginTop: 15,
@@ -264,8 +320,8 @@ export default function Home() {
                       />
                     </View>
                     <View>
-                      <Text>Battery Low</Text>
-                      <Text>2023/10/29 18:30</Text>
+                      <Text style={{color: 'white'}}>Battery Low</Text>
+                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
                     </View>
                   </View>
                   <View
@@ -275,7 +331,7 @@ export default function Home() {
                       alignItems: "center",
 
                       width: "100%",
-                      backgroundColor: "#DCDADA",
+                      backgroundColor: "#6749de",
                       borderRadius: 10,
                       padding: 8,
                       marginTop: 12,
@@ -289,8 +345,8 @@ export default function Home() {
                       />
                     </View>
                     <View>
-                      <Text>Battery Low</Text>
-                      <Text>2023/10/29 18:30</Text>
+                      <Text style={{color: 'white'}}>Battery Low</Text>
+                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
                     </View>
                   </View>
                   <View
@@ -300,7 +356,7 @@ export default function Home() {
                       alignItems: "center",
 
                       width: "100%",
-                      backgroundColor: "#DCDADA",
+                      backgroundColor: "#6749de",
                       borderRadius: 10,
                       padding: 8,
                       marginTop: 12,
@@ -314,12 +370,12 @@ export default function Home() {
                       />
                     </View>
                     <View>
-                      <Text>Battery Low</Text>
-                      <Text>2023/10/29 18:30</Text>
+                      <Text style={{color: 'white'}}>Battery Low</Text>
+                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
                     </View>
                   </View>
                 </View>
-              </View>
+              </View> */}
             </View>
           </ScrollView>
           </ImageBackground>

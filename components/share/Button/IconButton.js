@@ -43,6 +43,9 @@ const IconButton = ({
     case "ABOUT":
       buttonClass = ButtonStyle.aboutBtn;
       break;
+    case "NOTIFICATION":
+      buttonClass = ButtonStyle.notifyBtn;
+      break;
     case "LOGOUT":
       buttonClass = ButtonStyle.logoutBtn;
       break;
@@ -52,7 +55,11 @@ const IconButton = ({
     <TouchableOpacity onPress={onPress}>
       <View style={buttonClass}>
         <Image source={buttonIcon} style={{ width: width, height: height }} />
-        <Text style={btnType === 'LID' ? { color: txtColor} : { color: txtColor  }}>{buttonText}</Text>
+        <Text
+          style={btnType === "LID" ? { color: txtColor } : { color: txtColor }}
+        >
+          {buttonText}
+        </Text>
       </View>
     </TouchableOpacity>
   );
