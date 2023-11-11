@@ -27,7 +27,7 @@ export default function Home() {
   const aboutIcon = require("../../assets/AboutIcon.png");
   const notificationIcon = require("../../assets/mail.png");
   const existIcon = require("../../assets/ExistIcon.png");
-  const mailIcon = require("../../assets/MailIcon.png");
+  // const mailIcon = require("../../assets/MailIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
   const crdbkgrnd2 = require("../../assets/card9.jpg");
 

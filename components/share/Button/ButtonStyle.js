@@ -241,7 +241,16 @@ export default StyleSheet.create({
     }),
   },
 
-
+  footerIconBtn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: '#5876edc4',
+  },
 
   logoutBtn: {
     backgroundColor: "#80f45e",
@@ -268,3 +277,4 @@ export default StyleSheet.create({
     }),
   },
 });
+
