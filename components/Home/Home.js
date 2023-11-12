@@ -12,7 +12,6 @@ import global from "../../styles/global";
 import IconButton from "../share/Button/IconButton";
 import { colors } from "../../styles/constants";
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import { useTranslation } from "react-i18next";
 
 export default function Home() {
@@ -191,8 +190,8 @@ export default function Home() {
                     btnType={"ABOUT"}
                   />
                   <IconButton
-                    onPress={() => handleComponentControlBtn("Bin")}
-                    buttonText={t("NOTIFICATION")}
+                    onPress={() => handleComponentControlBtn("Notification")}
+                    buttonText={"Notification"}
                     buttonIcon={notificationIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -215,10 +214,10 @@ export default function Home() {
               </View>
             </View>
           </ScrollView>
-        </ImageBackground>
-      </View>
-
-      <Footer />
+          </ImageBackground>
+        </View>
+    
+      {/* <Footer /> */}
     </>
   );
 }

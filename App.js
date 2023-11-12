@@ -7,6 +7,7 @@ import Settings from "./components/Pages/Settings/Settings";
 import EditProfile from "./components/Pages/Profile/EditProfile";
 import About from "./components/Pages/About/About";
 import './services/i18next'; 
+import Notification from "./components/Pages/Notification/Notification";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="EDITPROFILE" component={EditProfile} />
+        <Stack.Screen name="Notification" component={Notification} />
       </Stack.Navigator>
     </NavigationContainer>
   );

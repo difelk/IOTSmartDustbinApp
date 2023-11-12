@@ -62,7 +62,7 @@ export default function Battery() {
         </View>
       </View>
     </View>
-        <Footer />
+        <Footer txt={'Battery'} />
         </>
   );
 }
