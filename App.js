@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import Battery from "./components/Pages/Battery/Battery";
 import Bin from "./components/Pages/Bin/Bin";
 import About from "./components/Pages/About/About";
+import Notification from "./components/Pages/Notification/Notification";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="Battery" component={Battery} />
         <Stack.Screen name="Bin" component={Bin} />
         <Stack.Screen name="About" component={About} />
+        <Stack.Screen name="Notification" component={Notification} />
       </Stack.Navigator>
     </NavigationContainer>
   );

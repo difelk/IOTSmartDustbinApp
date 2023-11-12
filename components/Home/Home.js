@@ -14,7 +14,7 @@ import IconButton from "../share/Button/IconButton";
 import { colors } from "../../styles/constants";
 import MyButton from "../share/Button/Button";
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 // import { ScrollView } from "react-native-gesture-handler";
 // import MyButton from "../share/Button/Button";
 
@@ -188,7 +188,7 @@ export default function Home() {
                     btnType={"ABOUT"}
                   />
                   <IconButton
-                    onPress={() => handleComponentControlBtn("Bin")}
+                    onPress={() => handleComponentControlBtn("Notification")}
                     buttonText={"Notification"}
                     buttonIcon={notificationIcon}
                     bgColor={"#1c7850"}
@@ -381,7 +381,7 @@ export default function Home() {
           </ImageBackground>
         </View>
     
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
