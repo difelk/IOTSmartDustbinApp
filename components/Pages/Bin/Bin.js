@@ -66,7 +66,7 @@ export default function Bin() {
         </View>
       </View>
     </View>
-        <Footer />
+        <Footer txt={"Bin"}/>
         </>
   );
 }

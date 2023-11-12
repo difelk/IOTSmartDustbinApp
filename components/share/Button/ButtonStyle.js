@@ -248,6 +248,8 @@ export default StyleSheet.create({
     justifyContent: "center",
     width: 40,
     height: 40,
+    marginLeft: 2,
+    marginRight: 2,
     borderRadius: 50,
     backgroundColor: '#5876edc4',
   },

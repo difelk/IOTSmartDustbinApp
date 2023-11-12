@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Image,
   ScrollView,
-  Dimensions,
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -12,13 +11,11 @@ import HomeStyle from "./HomeStyle";
 import global from "../../styles/global";
 import IconButton from "../share/Button/IconButton";
 import { colors } from "../../styles/constants";
-import MyButton from "../share/Button/Button";
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-// import { ScrollView } from "react-native-gesture-handler";
-// import MyButton from "../share/Button/Button";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+  const { t } = useTranslation();
   const batteryIcon = require("../../assets/BatteryIcon.png");
   const binIcon = require("../../assets/BinIcon.png");
   const binCloseIcon = require("../../assets/BinCloseIcon.png");
@@ -27,15 +24,12 @@ export default function Home() {
   const aboutIcon = require("../../assets/AboutIcon.png");
   const notificationIcon = require("../../assets/mail.png");
   const existIcon = require("../../assets/ExistIcon.png");
-  // const mailIcon = require("../../assets/MailIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
-  const crdbkgrnd2 = require("../../assets/card11.png");
+  const crdbkgrnd2 = require("../../assets/card14.jpg");
 
   const navigation = useNavigation();
-
-  const handleOnClick = (value) => {};
   const handleLidControlBtn = (screenName) => {
-    console.log("screenName - ", screenName);
+    // console.log("screenName - ", screenName);
   };
 
   const handleComponentControlBtn = (screenName) => {
@@ -44,18 +38,22 @@ export default function Home() {
 
   return (
     <>
-     
-        <View style={global.container}>
+      <View style={global.container}>
         <ImageBackground
-        source={crdbkgrnd2}
-        style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%'}}
-      >
+          source={crdbkgrnd2}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+          }}
+        >
           <Header />
           <ScrollView>
             <View style={HomeStyle.mainWrapper}>
               <View>
                 <View>
-                  <Text style={HomeStyle.mainTitleTxt}>LID Control</Text>
+                  <Text style={HomeStyle.mainTitleTxt}>{t("LID_CONTROL")}</Text>
                   <View style={HomeStyle.stripRuleTop}></View>
                 </View>
                 <View style={{ margin: 5 }}></View>
@@ -66,11 +64,14 @@ export default function Home() {
                     style={HomeStyle.greenBox}
                     borderRadius={10}
                   >
-                    {/* <View style={HomeStyle.greenBox}> */}
                     <View>
-                      <Text style={HomeStyle.subTitleTxt}>Current Status</Text>
-                      <Text style={HomeStyle.whiteTxt}>LID CLOSED</Text>
-                      <Text style={HomeStyle.subTitleTxt}>Battery Status</Text>
+                      <Text style={HomeStyle.subTitleTxt}>
+                        {t("CURRENT_STATUS")}
+                      </Text>
+                      <Text style={HomeStyle.whiteTxt}>{t("LID_CLOSE")}</Text>
+                      <Text style={HomeStyle.subTitleTxt}>
+                        {t("BATTERY_STATUS")}
+                      </Text>
                       <View style={global.display_Flx_dir_row_align_center}>
                         <Image
                           source={batteryIcon}
@@ -79,7 +80,9 @@ export default function Home() {
                         <Text style={HomeStyle.whiteTxt}>67%</Text>
                       </View>
 
-                      <Text style={HomeStyle.subTitleTxt}>Bin Status</Text>
+                      <Text style={HomeStyle.subTitleTxt}>
+                        {t("BIN_STATUS")}
+                      </Text>
                       <View style={global.display_Flx_dir_row_align_center}>
                         <Image source={binIcon} style={HomeStyle.statusIcons} />
                         <Text style={HomeStyle.whiteTxt}>20%</Text>
@@ -89,7 +92,7 @@ export default function Home() {
                       <View style={HomeStyle.lidBtnClose}>
                         <IconButton
                           onPress={handleLidControlBtn}
-                          buttonText={"CLOSE LID"}
+                          buttonText={t("CLOSE_LID")}
                           buttonIcon={binCloseIcon}
                           bgColor={"#3cb89b"}
                           txtColor={colors.white}
@@ -102,7 +105,7 @@ export default function Home() {
                       <View style={HomeStyle.lidBtnOpen}>
                         <IconButton
                           onPress={handleLidControlBtn}
-                          buttonText={"OPEN LID"}
+                          buttonText={t("OPEN_LID")}
                           buttonIcon={binOpenIcon}
                           bgColor={"#3cb89b"}
                           txtColor={colors.white}
@@ -117,9 +120,8 @@ export default function Home() {
                 </View>
               </View>
 
-              <View style={
-                    HomeStyle.servicesTextWrapper}>
-                <Text style={HomeStyle.servicesTex}>My Services</Text>
+              <View style={HomeStyle.servicesTextWrapper}>
+                <Text style={HomeStyle.servicesTex}>{t("MY_SERVICES")}</Text>
                 <View style={HomeStyle.stripRuleBottom}></View>
               </View>
 
@@ -134,7 +136,7 @@ export default function Home() {
                 >
                   <IconButton
                     onPress={() => handleComponentControlBtn("Battery")}
-                    buttonText={"BATTERY"}
+                    buttonText={t("BATTERY")}
                     buttonIcon={batteryIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -145,7 +147,7 @@ export default function Home() {
                   />
                   <IconButton
                     onPress={() => handleComponentControlBtn("Bin")}
-                    buttonText={"BIN"}
+                    buttonText={t("BIN")}
                     buttonIcon={binIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -155,8 +157,8 @@ export default function Home() {
                     btnType={"BIN"}
                   />
                   <IconButton
-                    onPress={() => handleComponentControlBtn("Battery")}
-                    buttonText={"SETTINGS"}
+                    onPress={() => handleComponentControlBtn("Settings")}
+                    buttonText={t("SETTINGS")}
                     buttonIcon={settingIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -178,7 +180,7 @@ export default function Home() {
                 >
                   <IconButton
                     onPress={() => handleComponentControlBtn("About")}
-                    buttonText={"ABOUT"}
+                    buttonText={t("ABOUT")}
                     buttonIcon={aboutIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -188,8 +190,8 @@ export default function Home() {
                     btnType={"ABOUT"}
                   />
                   <IconButton
-                    onPress={() => handleComponentControlBtn("Bin")}
-                    buttonText={"Notification"}
+                    onPress={() => handleComponentControlBtn("Notification")}
+                    buttonText={t("NOTIFICATION")}
                     buttonIcon={notificationIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
@@ -198,190 +200,24 @@ export default function Home() {
                     btnSize={"LG"}
                     btnType={"NOTIFICATION"}
                   />
-                   <IconButton
+                  <IconButton
                     onPress={() => handleComponentControlBtn("Battery")}
-                    buttonText={"LOGOUT"}
+                    buttonText={t("LOGOUT")}
                     buttonIcon={existIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
                     width={55}
                     height={55}
                     btnSize={"LG"}
-                    // btnType={'LOGOUT'}
                   />
                 </View>
               </View>
-
-              {/* <View style={{ margin: 10 }}></View> */}
-
-              {/* <View
-                style={[
-                  global.display_Flx_dir_row_align_center,
-                  global.justify_between,
-                ]}
-              >
-                <View
-                  style={[
-                    global.display_Flx,
-                    global.dir_col,
-                    global.align_start,
-                    global.justify_between,
-                    global.mg20,
-                  ].join(" ")}
-                >
-                  <IconButton
-                    onPress={() => handleComponentControlBtn("About")}
-                    buttonText={"ABOUT"}
-                    buttonIcon={aboutIcon}
-                    bgColor={"#1c7850"}
-                    txtColor={colors.white}
-                    width={55}
-                    height={55}
-                    btnSize={"LG"}
-                    btnType={"ABOUT"}
-                  />
-                  <View style={{ margin: 10 }}></View>
-                  <IconButton
-                    onPress={() => handleComponentControlBtn("Battery")}
-                    buttonText={"LOGOUT"}
-                    buttonIcon={existIcon}
-                    bgColor={"#1c7850"}
-                    txtColor={colors.white}
-                    width={55}
-                    height={55}
-                    btnSize={"LG"}
-                    // btnType={'LOGOUT'}
-                  />
-                </View>
-                <View
-                  style={{
-                    width: "62%",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontWeight: "600",
-                            marginRight: 16,
-                          }}
-                        >
-                          NOTIFICATION
-                        </Text>
-                      </View>
-                      <View>
-                        <MyButton
-                          onPress={handleOnClick}
-                          buttonText={"View All"}
-                          buttonType={"LINK"}
-
-                        />
-                      </View>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-
-                      width: "100%",
-                      backgroundColor: "#6749de",
-                      borderRadius: 10,
-                      padding: 8,
-                      marginTop: 15,
-                      marginBottom: 8,
-                    }}
-                  >
-                    <View style={{ marginRight: 16 }}>
-                      <Image
-                        source={mailIcon}
-                        style={{ width: 25, height: 25 }}
-                      />
-                    </View>
-                    <View>
-                      <Text style={{color: 'white'}}>Battery Low</Text>
-                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-
-                      width: "100%",
-                      backgroundColor: "#6749de",
-                      borderRadius: 10,
-                      padding: 8,
-                      marginTop: 12,
-                      marginBottom: 8,
-                    }}
-                  >
-                    <View style={{ marginRight: 16 }}>
-                      <Image
-                        source={mailIcon}
-                        style={{ width: 25, height: 25 }}
-                      />
-                    </View>
-                    <View>
-                      <Text style={{color: 'white'}}>Battery Low</Text>
-                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-
-                      width: "100%",
-                      backgroundColor: "#6749de",
-                      borderRadius: 10,
-                      padding: 8,
-                      marginTop: 12,
-                      marginBottom: 8,
-                    }}
-                  >
-                    <View style={{ marginRight: 16 }}>
-                      <Image
-                        source={mailIcon}
-                        style={{ width: 25, height: 25 }}
-                      />
-                    </View>
-                    <View>
-                      <Text style={{color: 'white'}}>Battery Low</Text>
-                      <Text style={{color: 'white'}}>2023/10/29 18:30</Text>
-                    </View>
-                  </View>
-                </View>
-              </View> */}
             </View>
           </ScrollView>
           </ImageBackground>
         </View>
     
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
