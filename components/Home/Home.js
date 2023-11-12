@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -191,7 +191,7 @@ export default function Home() {
                   />
                   <IconButton
                     onPress={() => handleComponentControlBtn("Notification")}
-                    buttonText={"Notification"}
+                    buttonText={t("NOTIFICATION")}
                     buttonIcon={notificationIcon}
                     bgColor={"#1c7850"}
                     txtColor={colors.white}
