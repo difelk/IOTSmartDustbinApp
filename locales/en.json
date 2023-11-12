@@ -1,0 +1,21 @@
+{
+    "LID_CONTROL" : "LID Control",
+    "CURRENT_STATUS" : "Current Status",
+    "LID_CLOSE" : "LID CLOSED",
+    "LID_OPEN" : "LID OPEN",
+    "OPEN_LID" : "Open LID",
+    "CLOSE_LID" : "Close LID",
+    "BATTERY_STATUS" : "Battery Status",
+    "BIN_STATUS" : "Bin Status",
+    "MY_SERVICES":"My Services",
+    "BATTERY":"BATTERY",
+    "BIN":"BIN",
+    "SETTINGS":"SETTINGS",
+    "ABOUT":"ABOUT",
+    "NOTIFICATION":"Notifications",
+    "LOGOUT":"LOGOUT",
+    "SELECT_PREFERRED_LANGUAGE":"Select preferred Language",
+    "SELECT_LANGUAGE" : "Select Language",
+    "DISPLAY_NAME" : "Display Name"
+    
+}

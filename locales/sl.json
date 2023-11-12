@@ -1,0 +1,20 @@
+{
+    "LID_CONTROL" : "පියන පාලනය",
+    "CURRENT_STATUS" : "වත්මන් තත්ත්වය",
+    "LID_CLOSE" : "පියන වසා ඇත",
+    "LID_OPEN" : "පියන විවෘතයි",
+    "OPEN_LID" : "පියන විවෘත කරන්න",
+    "CLOSE_LID" : "පියන වසා දමන්න",
+    "BATTERY_STATUS" : "පියන විවෘතයි",
+    "BIN_STATUS" : "බින් තත්ත්වය",
+    "MY_SERVICES":"මගේ සේවා",
+    "BATTERY":"බැටරි",
+    "BIN":"කූඩය",
+    "SETTINGS":"සැකසුම්",
+    "ABOUT":"මගපෙන්වීම",
+    "NOTIFICATION":"දැනුම්දීම්",
+    "LOGOUT":"පිටත්වීම",
+    "SELECT_PREFERRED_LANGUAGE":"කැමති භාෂාව තෝරන්න",
+    "SELECT_LANGUAGE" : "භාෂාව තෝරන්න",
+    "DISPLAY_NAME" : "ප්රදර්ශන නාමය"
+}

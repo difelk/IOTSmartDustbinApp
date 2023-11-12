@@ -1,11 +1,14 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import HeaderStyle from "./HeaderStyle";
 import MyButton from "../share/Button/Button";
 
 export default function Header() {
-  const handleOnClick = (value) => {
-    console.log(value);
+  const navigation = useNavigation();
+  const handleOnClick = (screenName) => {
+    // console.log(value);
+    navigation.navigate(screenName);
   };
 
   return (
@@ -20,7 +23,7 @@ export default function Header() {
       <View>
         <View>
           <MyButton
-            onPress={handleOnClick}
+            onPress={() => handleOnClick('EDITPROFILE')}
             buttonText={"View Profile"}
             buttonType={"PRIMARY"}
           />
