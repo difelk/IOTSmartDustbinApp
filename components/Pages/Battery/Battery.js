@@ -6,7 +6,7 @@ import Footer from "../../Footer/Footer";
 export default function Battery() {
   const [batteryDetails, setBatteryDetails] = useState([]);
 
-  const ipAddress = "192.168.8.101";
+  const ipAddress = "192.168.8.100";
   useEffect(() => {
     fetch(`http://${ipAddress}:3000/battery`)
       .then((response) => response.json())
@@ -17,6 +17,8 @@ export default function Battery() {
       })
       .catch((error) => console.error("Error:", error));
   }, []);
+
+console.log("batteryDetails - ", batteryDetails);
 
   return (
     <>
