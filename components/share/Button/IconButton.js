@@ -53,17 +53,27 @@ const IconButton = ({
     case "FOOTER":
       buttonClass = ButtonStyle.footerIconBtn;
       break;
+
+    case "":
+      buttonClass = ButtonStyle.normalIconBtn;
+      break;
   }
 
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={buttonClass}>
         <Image source={buttonIcon} style={{ width: width, height: height }} />
-       {buttonText !== "" ? <Text
-          style={btnType === "LID" ? { color: txtColor } : { color: txtColor }}
-        >
-          {buttonText}
-        </Text> : ''}
+        {buttonText !== "" ? (
+          <Text
+            style={
+              btnType === "LID" ? { color: txtColor } : { color: txtColor }
+            }
+          >
+            {buttonText}
+          </Text>
+        ) : (
+          ""
+        )}
       </View>
     </TouchableOpacity>
   );

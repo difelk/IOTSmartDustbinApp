@@ -253,6 +253,17 @@ export default StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#5876edc4',
   },
+  normalIconBtn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 40,
+    height: 40,
+    marginLeft: 2,
+    marginRight: 2,
+    borderRadius: 50,
+  },
 
   logoutBtn: {
     backgroundColor: "#80f45e",
