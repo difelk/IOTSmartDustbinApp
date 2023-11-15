@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import BatteryStyle from "./BatteryStyle";
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
+import Loader from "../../share/Loader";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -13,10 +14,12 @@ export default function Battery() {
   const batteryIcon30 = require("../../../assets/empty-battery-status-30.png")
   const batteryIcon0 = require("../../../assets/empty-battery-status-0.png")
   const noticeIcon = require("../../../assets/noticeIcon.png")
+const [isLoading, setIsLoading] = useState(false)
 
   const ipAddress = "192.168.8.100";
 
   useEffect(() => {
+    setIsLoading(true)
     fetch(`http://${ipAddress}:3000/battery`)
       .then((response) => {
         if (!response.ok) {
@@ -28,15 +31,17 @@ export default function Battery() {
         const dataArray = Array.isArray(data) ? data : [data];
         setBatteryDetails(dataArray);
         setError(null);
-        console.log("Updated state:", dataArray);
+        // console.log("Updated state:", dataArray);
+        setIsLoading(false)
       })
       .catch((error) => {
         setError(error);
         console.error("Error:", error);
+        setIsLoading(false)
       });
+     
   }, []);
 
-  console.log("batteryDetails - ", batteryDetails);
   const getStyleAccordngData = (data) => {
    if(data.percentage >= 80){
     return {
@@ -119,7 +124,7 @@ export default function Battery() {
             </View> */}
 
             <View style={BatteryStyle.columnWrap}>
-            {batteryDetails.map((data, index) => (
+              {!isLoading ? batteryDetails.map((data, index) => (
               <View style={BatteryStyle.columnItem} key={`${data.date}-${data.time}-${index}`}>
                 <View style={BatteryStyle.columnItemDetails}>
                   <View style={BatteryStyle.columnItemGroupDetails}>
@@ -133,7 +138,7 @@ export default function Battery() {
                 <Image source={getStyleAccordngData(data).icon} style={[BatteryStyle.statusIcon, { width: 35, height: 35 }]} />
                 <View style={getStyleAccordngData(data).classType}/>
                 </View>
-              </View>  ))}
+              </View>  )) : <Loader />}
             </View>
 
             {/* {batteryDetails &&
