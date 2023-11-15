@@ -42,7 +42,6 @@ const [isLoading, setIsLoading] = useState(false)
      
   }, []);
 
-  console.log("isLoading - ", isLoading);
   const getStyleAccordngData = (data) => {
    if(data.percentage >= 80){
     return {
