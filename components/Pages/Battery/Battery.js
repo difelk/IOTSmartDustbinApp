@@ -4,6 +4,8 @@ import BatteryStyle from "./BatteryStyle";
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
 import Loader from "../../share/Loader";
+import AlertBox from "../../share/AlertBox";
+import ip from "../../../config/ipAddress.json";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -16,11 +18,9 @@ export default function Battery() {
   const noticeIcon = require("../../../assets/noticeIcon.png");
   const [isLoading, setIsLoading] = useState(false);
 
-  const ipAddress = "192.168.8.100";
-
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://${ipAddress}:3000/battery`)
+    fetch(`http://${ip.ipAdress}:3000/battery`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -78,6 +78,7 @@ export default function Battery() {
   return (
     <>
       <View style={BatteryStyle.mainWrapper}>
+      { error ?  <AlertBox type={error ? "ERROR" : ""} description={error}  /> : ""}
         <Text style={BatteryStyle.pageName}>HOME > BATTERY</Text>
         {error ? (
           <Text>Error fetching data. Please try again.</Text>
