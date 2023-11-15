@@ -7,7 +7,7 @@ export default StyleSheet.create({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: Colors.backgroundColor2,
+    // backgroundColor: Colors.backgroundColor2,
     paddingTop: 60,
     paddingLeft: 12,
     paddingRight: 8,
@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
 
   currentStatusTitle: {
-    color: "#ffffff",
+    color: "#FFFFFF",
     marginTop: 20,
   },
 
@@ -32,9 +32,9 @@ export default StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#4e6bf2",
+    backgroundColor: "#6E33D3",
     padding: 8,
-    borderRadius: 4,
+    borderRadius: 8,
     marginBottom: 15,
     ...Platform.select({
       ios: {
@@ -50,9 +50,22 @@ export default StyleSheet.create({
     }),
   },
 
+  graphpercBorder:{
+width:300,
+padding: 8,
+backgroundColor: '#cae5fd',
+borderRadius: 10,
+  },
+  graphperLength:{
+backgroundColor: '#0f8af9',
+padding:8,
+borderRadius: 10,
+position:'absolute',
+  },
+
   currentStatusDisplay: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -68,12 +81,12 @@ export default StyleSheet.create({
   lardgeTxt: {
     fontSize: 70,
     fontWeight: "700",
-    color: "#ffffff",
+    color: "#FFFFFF",
   },
 
   perc: {
     fontSize: 15,
-    color: "#ffffff",
+    color: "#FFFFFF",
   },
 
   refreshBtn: {
