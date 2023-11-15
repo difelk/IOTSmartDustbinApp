@@ -3,7 +3,6 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { colors } from "../../../styles/constants";
 
 export default StyleSheet.create({
-  
   mainWrapper: {
     width: "100%",
     display: "flex",
@@ -14,14 +13,13 @@ export default StyleSheet.create({
     paddingRight: 8,
   },
 
-  pageName:{
-    display:'flex',
-    alignItems: 'flex-start',
-    color: '#b97ae5',
+  pageName: {
+    display: "flex",
+    alignItems: "flex-start",
+    color: "#b97ae5",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     marginBottom: 20,
-
   },
 
   currentStatusTitle: {
@@ -111,5 +109,128 @@ export default StyleSheet.create({
     textAlign: "center",
     backgroundColor: colors.backgroundColor2,
     borderLeftColor: colors.white,
+  },
+
+  // new styles
+
+  columnWrap: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 12,
+  },
+  columnItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 12,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: "#F9F9F9",
+    backgroundColor: "#ffffff",
+  },
+  columnItemDetails: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  columnItemGroupDetails: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  columnItemDetailHeader: {
+    fontSize: 16,
+    fontWeight: "600",
+    paddingBottom: 4,
+  },
+  columnItemDetailHeaderStatus: {
+    backgroundColor: "#78E587",
+    padding: 12,
+    borderRadius: 8,
+    width: 12,
+    fontSize: 16,
+  },
+  columnItemDetailSubHeader: {
+    fontSize: 12,
+    color: 'gray',
+    marginTop: 4,
+  },
+  statusIconWrapper: {
+    position: "relative",
+  },
+  statusIcon: {
+    transform: [{ rotate: "-90deg" }],
+  },
+  noticeIcon: {
+    marginLeft: 8,
+  },
+  fullBatteryStatus: {
+    width: 120,
+    backgroundColor: "#78E587",
+    borderRadius: 10,
+    padding: 4,
+    marginLeft: 10,
+    color: 'white',
+    fontWeight: '600'
+  },
+  normalBatteryStatus: {
+    width: 80,
+    backgroundColor: "#3FC3F4",
+    borderRadius: 10,
+    padding: 4,
+    marginLeft: 10,
+    color: 'white',
+    fontWeight: '600'
+  },
+  belowNormalBatteryStatus: {
+    width: 50,
+    backgroundColor: "#EBB37A",
+    borderRadius: 10,
+    padding: 4,
+    marginLeft: 10,
+    color: 'white',
+    fontWeight: '600'
+  },
+  dangBatteryStatus: {
+    width: 35,
+    backgroundColor: "#F57FA3",
+    borderRadius: 10,
+    padding: 4,
+    marginLeft: 10,
+    color: 'white',
+    fontWeight: '600'
+  },
+  fullBattery: {
+    width: 10,
+    height: 24.8,
+    backgroundColor: "#78E587",
+    position: "absolute",
+    bottom: 4,
+    right: 12.5,
+  },
+  normalBattery: {
+    width: 10,
+    height: 20,
+    backgroundColor: "#3FC3F4",
+    position: "absolute",
+    bottom: 4,
+    right: 12.5,
+  },
+
+  belowNormalBattery: {
+    width: 10,
+    height: 10,
+    backgroundColor: "#EBB37A",
+    position: "absolute",
+    bottom: 4,
+    right: 12.5,
+  },
+
+  dangBattery: {
+    width: 10,
+    height: 2,
+    backgroundColor: "#F57FA3",
+    position: "absolute",
+    bottom: 4,
+    right: 12.5,
   },
 });
