@@ -54,6 +54,9 @@ const IconButton = ({
       buttonClass = ButtonStyle.footerIconBtn;
       break;
 
+      case "LIDCONTROL":
+        buttonClass = ButtonStyle.widthBtnIconLeft;
+        break;
     case "":
       buttonClass = ButtonStyle.normalIconBtn;
       break;
@@ -66,7 +69,7 @@ const IconButton = ({
         {buttonText !== "" ? (
           <Text
             style={
-              btnType === "LID" ? { color: txtColor } : { color: txtColor }
+              btnType === "LID" ||  btnType === "LIDCONTROL"  ? { color: '#000000', marginTop: 0, marginLeft: 4, fontWeight: '700' } : { color: '#191952',fontWeight: '700', marginTop: 16 }
             }
           >
             {buttonText}

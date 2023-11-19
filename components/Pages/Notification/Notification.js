@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "rea
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
 import { colors } from "../../../styles/constants";
+import Header from "../../Header/Header";
 
 export default function Notification() {
   const notificationIcon = require("../../../assets/MailIcon.png");
@@ -36,6 +37,7 @@ export default function Notification() {
   }
   return (
     <>
+     <Header />
       <View style={styles.center}>
         <Text style={styles.topicTxt}>Notification</Text>
 
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
     paddingLeft: 12,
     paddingRight: 12,
-    paddingTop: 50,
+    paddingTop: 12,
     backgroundColor: "#EBEBEB",
   },
   topicTxt: {

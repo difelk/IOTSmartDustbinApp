@@ -6,6 +6,7 @@ import IconButton from "../../share/Button/IconButton";
 import Loader from "../../share/Loader";
 import AlertBox from "../../share/AlertBox";
 import ip from "../../../config/ipAddress.json";
+import Header from "../../Header/Header";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -77,9 +78,9 @@ export default function Battery() {
 
   return (
     <>
+    <Header />
       <View style={BatteryStyle.mainWrapper}>
       { error ?  <AlertBox type={error ? "ERROR" : ""} description={error}  /> : ""}
-        <Text style={BatteryStyle.pageName}>HOME > BATTERY</Text>
         {error ? (
           <Text>Error fetching data. Please try again.</Text>
         ) : (

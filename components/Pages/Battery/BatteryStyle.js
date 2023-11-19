@@ -8,7 +8,7 @@ export default StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     // backgroundColor: Colors.backgroundColor2,
-    paddingTop: 60,
+    paddingTop: 16,
     paddingLeft: 12,
     paddingRight: 8,
   },
@@ -24,7 +24,6 @@ export default StyleSheet.create({
 
   currentStatusTitle: {
     color: "#FFFFFF",
-    marginTop: 20,
   },
 
   currentStatus: {

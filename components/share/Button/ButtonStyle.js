@@ -12,7 +12,10 @@ export default StyleSheet.create({
     color: "red",
   },
   buttonText: {
-    backgroundColor: colors.black,
+    color: colors.black,
+  },
+  txtColor: {
+    color: "#191952",
   },
   primaryBtnText: {
     color: colors.white,
@@ -54,7 +57,7 @@ export default StyleSheet.create({
       },
       android: {
         shadowColor: "green",
-        elevation: 20,
+        elevation: 2,
       },
     }),
   },
@@ -104,7 +107,7 @@ export default StyleSheet.create({
     }),
   },
   batteryBtn: {
-    backgroundColor: "#f8ce30",
+    backgroundColor: "#ffffff",
 
     display: "flex",
     flexDirection: "column",
@@ -116,20 +119,19 @@ export default StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        shadowColor: "blue",
+        shadowColor: "#191952",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
-        elevation: 20,
+        shadowColor: "#191952",
+        elevation: 2,
       },
     }),
   },
   binBtn: {
-    backgroundColor: "#65e38f",
-
+    backgroundColor: "#ffffff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -140,20 +142,20 @@ export default StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        shadowColor: "blue",
+        shadowColor: "#191952",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
-        elevation: 20,
+        shadowColor: "#191952",
+        elevation: 2,
       },
     }),
   },
 
   settingsBtn: {
-    backgroundColor: "#66b2fe",
+    backgroundColor: "#ffffff",
 
     display: "flex",
     flexDirection: "column",
@@ -165,20 +167,20 @@ export default StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        shadowColor: "blue",
+        shadowColor: "#191952",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
-        elevation: 20,
+        shadowColor: "#191952",
+        elevation: 2,
       },
     }),
   },
 
   aboutBtn: {
-    backgroundColor: "#ec6874",
+    backgroundColor: "#ffffff",
 
     display: "flex",
     flexDirection: "column",
@@ -190,13 +192,40 @@ export default StyleSheet.create({
 
     ...Platform.select({
       ios: {
+        shadowColor: "#191952",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      },
+      android: {
+        shadowColor: "#191952",
+        elevation: 2,
+      },
+    }),
+  },
+
+  widthBtnIconLeft: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 160,
+    backgroundColor: "#ffffff",
+    borderRadius: 50,
+    padding: 12,
+    marginRight: 6,
+    marginLeft: 6,
+    marginTop: 12,
+    
+    ...Platform.select({
+      ios: {
         shadowColor: "blue",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
+        shadowColor: "#191952",
         elevation: 20,
       },
     }),
@@ -205,7 +234,7 @@ export default StyleSheet.create({
   link: {
     backgroundColor: "unset",
     borderColor: "none",
-    textAlign: 'right',
+    textAlign: "right",
     marginLeft: 20,
   },
 
@@ -213,12 +242,10 @@ export default StyleSheet.create({
     color: "#0ab86e",
     fontWeight: "600",
     fontSize: 16,
-    
   },
 
   notifyBtn: {
-    backgroundColor: "#bc6ef7",
-
+    backgroundColor: "#ffffff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -235,8 +262,8 @@ export default StyleSheet.create({
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
-        elevation: 20,
+        shadowColor: "#191952",
+        elevation: 2,
       },
     }),
   },
@@ -251,7 +278,7 @@ export default StyleSheet.create({
     marginLeft: 2,
     marginRight: 2,
     borderRadius: 50,
-    backgroundColor: '#5876edc4',
+    backgroundColor: "#5876edc4",
   },
   normalIconBtn: {
     display: "flex",
@@ -266,8 +293,7 @@ export default StyleSheet.create({
   },
 
   logoutBtn: {
-    backgroundColor: "#80f45e",
-
+    backgroundColor: "#ffffff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -278,16 +304,15 @@ export default StyleSheet.create({
 
     ...Platform.select({
       ios: {
-        shadowColor: "blue",
+        shadowColor: "#191952",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 8,
       },
       android: {
-        shadowColor: "green",
-        elevation: 20,
+        shadowColor: "#191952",
+        elevation: 2,
       },
     }),
   },
 });
-

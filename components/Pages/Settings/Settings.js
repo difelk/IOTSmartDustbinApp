@@ -6,6 +6,7 @@ import i18next from "../../../services/i18next";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useTranslation } from "react-i18next";
 import SlideButton from "../../share/Button/SlideButton";
+import Header from "../../Header/Header";
 export default function Settings() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -42,6 +43,7 @@ export default function Settings() {
 
   return (
     <>
+     <Header />
       <View style={styles.settingsWrapper}>
         <Text style={styles.mainHeader}>{t("SETTINGS")}</Text>
         <View style={styles.langDropWrapper}>
@@ -86,8 +88,9 @@ const styles = StyleSheet.create({
   settingsWrapper: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
-    padding: 18,
+    alignItems: "flexStart",
+    // marginLeft: 8,
+    // marginRight:8,
     width: "100%",
     marginTop: 20,
   },
