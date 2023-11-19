@@ -6,8 +6,8 @@ export default StyleSheet.create({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    // backgroundColor: colors.backgroundColor2,
-    padding: 16,
+    backgroundColor: "#4363eb",
+    // padding: 16,
     paddingBottom: 50,
   },
   subTitleTxt: {
@@ -18,11 +18,11 @@ export default StyleSheet.create({
   },
 
   mainTitleTxt: {
-    fontSize: 16,
+    fontSize:18,
     color: '#ffffff',
-    fontWeight: "600",
-    marginTop: 16,
-    marginBottom:16,
+    fontWeight: "700",
+    // marginTop: 16,
+    marginBottom:8,
   },
   stripRuleTop:{
     width:260,
@@ -48,10 +48,10 @@ export default StyleSheet.create({
   
   greenBox: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    // backgroundColor: "#3AE199",
+    backgroundColor: "#4363eb",
     padding: 16,
     borderRadius: 8,
     marginBottom: 26,
@@ -65,25 +65,52 @@ export default StyleSheet.create({
       },
       android: {
         shadowColor: "black",
-        elevation:20,
+        elevation:0,
       },
     }),
   },
+
+sectionTwo: {
+  backgroundColor: "#ffffff",
+  width: "100%",
+  height: "100%",
+  padding: 20,
+  borderTopLeftRadius:25,
+  borderTopRightRadius: 25,
+  ...Platform.select({
+    ios: {
+      shadowColor: "blue",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.1,
+      shadowRadius: 8,
+    },
+    android: {
+      shadowColor: "#191952",
+      elevation:50,
+    },
+  }),
+},
+
   homeBtnsList: {
     display: "none",
     marginBottom:50,
     paddingBottom:50,
     height:100,
+    
 
+  },
+  bkgrnfBlue: {
+    backgroundColor: "#4363eb",
   },
   servicesTextWrapper:{
     marginBottom: 20,
     marginTop:5,
+    backgroundColor: '#ffffff',
   },
   servicesTex:{
-      fontSize: 16,
-      fontWeight:'600',
-      color: '#ffffff',
+      fontSize: 18,
+      fontWeight:'700',
+      color: '#373737',
   },
   whiteTxt: {
     color: colors.white,

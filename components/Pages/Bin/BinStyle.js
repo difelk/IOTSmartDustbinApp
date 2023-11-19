@@ -6,11 +6,11 @@ export default StyleSheet.create({
   mainWrapper: {
     width: "100%",
     display: "flex",
+    alignItems: 'center',
     flexDirection: "column",
     backgroundColor: Colors.backgroundColor2,
-    paddingTop: 50,
-    paddingLeft: 12,
-    paddingRight: 8,
+    paddingTop: 16,
+
   },
 
   mainTitleTxt: {

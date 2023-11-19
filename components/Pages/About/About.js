@@ -7,6 +7,7 @@ import Footer from "../../Footer/Footer";
 export default function About() {
   return (
     <>
+     <Header />
       <View style={styles.center}>
         {/* <Header /> */}
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: "100%",
     alignItems: 'flex-end',
-    paddingBottom: 60,
+    paddingBottom: 180,
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 12,
