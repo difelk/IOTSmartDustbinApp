@@ -7,6 +7,7 @@ import Loader from "../../share/Loader";
 import AlertBox from "../../share/AlertBox";
 import ip from "../../../config/ipAddress.json";
 import Header from "../../Header/Header";
+import MyButton from "../../share/Button/Button";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -72,15 +73,24 @@ export default function Battery() {
 
   const handleRefresh = () => {};
 
+  const [activeTab, setActiveTab] = useState("HISTORY");
+  const handleTabChange = (values) => {
+    setActiveTab(values);
+  };
+
   const getPercentageWidth = (percentage) => {
     return (percentage / 100) * 300;
-  }
+  };
 
   return (
     <>
-    <Header />
+      <Header />
       <View style={BatteryStyle.mainWrapper}>
-      { error ?  <AlertBox type={error ? "ERROR" : ""} description={error}  /> : ""}
+        {error ? (
+          <AlertBox type={error ? "ERROR" : ""} description={error} />
+        ) : (
+          ""
+        )}
         {error ? (
           <Text>Error fetching data. Please try again.</Text>
         ) : (
@@ -90,14 +100,23 @@ export default function Battery() {
                 Current Battery Status
               </Text>
               <View style={BatteryStyle.currentStatusDisplay}>
-                <View  style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline'}}>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "baseline",
+                  }}
+                >
                   <Text style={BatteryStyle.lardgeTxt}>80</Text>
                   <Text style={BatteryStyle.perc}>%</Text>
                 </View>
-                <View style={{position: 'relative'}}>
+                <View style={{ position: "relative" }}>
                   <View style={BatteryStyle.graphpercBorder} />
                   <View
-                    style={{ width: getPercentageWidth(80), ...BatteryStyle.graphperLength }}
+                    style={{
+                      width: getPercentageWidth(80),
+                      ...BatteryStyle.graphperLength,
+                    }}
                   />
                 </View>
               </View>
@@ -117,10 +136,22 @@ export default function Battery() {
               </View>
             </View>
 
-            <View style={BatteryStyle.headerTxt}>
-              <Text style={BatteryStyle.mainTitleTxt}>Battery History</Text>
+            <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+              <View style={BatteryStyle.tabBtnWraper}>
+                <MyButton
+                  onPress={() => handleTabChange("HISTORY")}
+                  buttonText={"Battery History"}
+                  buttonType={"TAB"}
+                  isItActive={activeTab === "HISTORY"}
+                />
+                <MyButton
+                  onPress={() => handleTabChange("ANALYSIS")}
+                  buttonText={"Battery Analysis"}
+                  buttonType={"TAB"}
+                  isItActive={activeTab === "ANALYSIS"}
+                />
+              </View>
             </View>
-
             {/* <View style={BatteryStyle.headerSection}>
               <View style={BatteryStyle.headerCol}>
                 <Text>Date</Text>
@@ -135,6 +166,7 @@ export default function Battery() {
 
             <View style={BatteryStyle.columnWrap}>
               {!isLoading ? (
+                activeTab === 'HISTORY' ?
                 batteryDetails.map((data, index) => (
                   <View
                     style={BatteryStyle.columnItem}
@@ -175,7 +207,9 @@ export default function Battery() {
                       <View style={getStyleAccordngData(data).classType} />
                     </View>
                   </View>
-                ))
+                )) : <View>
+                  <Text>Simple jack</Text>
+                </View>
               ) : (
                 <Loader />
               )}

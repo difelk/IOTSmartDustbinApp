@@ -49,17 +49,17 @@ export default StyleSheet.create({
     }),
   },
 
-  graphpercBorder:{
-width:300,
-padding: 8,
-backgroundColor: '#cae5fd',
-borderRadius: 10,
+  graphpercBorder: {
+    width: 300,
+    padding: 8,
+    backgroundColor: "#cae5fd",
+    borderRadius: 10,
   },
-  graphperLength:{
-backgroundColor: '#0f8af9',
-padding:8,
-borderRadius: 10,
-position:'absolute',
+  graphperLength: {
+    backgroundColor: "#0f8af9",
+    padding: 8,
+    borderRadius: 10,
+    position: "absolute",
   },
 
   currentStatusDisplay: {
@@ -163,7 +163,7 @@ position:'absolute',
   },
   columnItemDetailSubHeader: {
     fontSize: 12,
-    color: 'gray',
+    color: "gray",
     marginTop: 4,
   },
   statusIconWrapper: {
@@ -181,8 +181,8 @@ position:'absolute',
     borderRadius: 10,
     padding: 4,
     marginLeft: 10,
-    color: 'white',
-    fontWeight: '600'
+    color: "white",
+    fontWeight: "600",
   },
   normalBatteryStatus: {
     width: 80,
@@ -190,8 +190,8 @@ position:'absolute',
     borderRadius: 10,
     padding: 4,
     marginLeft: 10,
-    color: 'white',
-    fontWeight: '600'
+    color: "white",
+    fontWeight: "600",
   },
   belowNormalBatteryStatus: {
     width: 50,
@@ -199,8 +199,8 @@ position:'absolute',
     borderRadius: 10,
     padding: 4,
     marginLeft: 10,
-    color: 'white',
-    fontWeight: '600'
+    color: "white",
+    fontWeight: "600",
   },
   dangBatteryStatus: {
     width: 35,
@@ -208,8 +208,8 @@ position:'absolute',
     borderRadius: 10,
     padding: 4,
     marginLeft: 10,
-    color: 'white',
-    fontWeight: '600'
+    color: "white",
+    fontWeight: "600",
   },
   fullBattery: {
     width: 10,
@@ -244,5 +244,16 @@ position:'absolute',
     position: "absolute",
     bottom: 4,
     right: 12.5,
+  },
+
+  tabBtnWraper: {
+    backgroundColor: "#ffffff",
+    display: "flex",
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 8,
+    borderRadius: 50,
+    maxWidth: 275,
   },
 });
