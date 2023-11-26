@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import HomeStyle from "./HomeStyle";
 import global from "../../styles/global";
@@ -27,6 +34,8 @@ export default function Home() {
   const existIcon = require("../../assets/existBlueIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
   const crdbkgrnd2 = require("../../assets/background007.jpg");
+  const alertIcon = require("../../assets/alert.png");
+  const nextIcon = require("../../assets/next.png");
 
   const navigation = useNavigation();
   const handleLidControlBtn = (screenName) => {
@@ -34,6 +43,9 @@ export default function Home() {
   };
 
   const handleComponentControlBtn = (screenName) => {
+    navigation.navigate(screenName);
+  };
+  const handleNextBtn = (screenName) => {
     navigation.navigate(screenName);
   };
 
@@ -64,6 +76,7 @@ export default function Home() {
                     resizeMode="cover"
                     style={HomeStyle.greenBox}
                     borderRadius={10}
+                    
                   >
                     {/* <View>
                       <Text style={HomeStyle.subTitleTxt}>
@@ -125,6 +138,7 @@ export default function Home() {
                         justifyContent: "space-between",
                         width: "100%",
                         marginBottom: 10,
+                        
                       }}
                     >
                       <View>
@@ -142,6 +156,7 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
+                            
                           }}
                         >
                           <Image
@@ -163,6 +178,7 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
+                            
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
@@ -196,6 +212,7 @@ export default function Home() {
                               fontSize: 25,
                               color: "#ffffff",
                               fontWeight: "700",
+                              
                             }}
                           >
                             80%
@@ -206,6 +223,7 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
+                            
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
@@ -220,6 +238,7 @@ export default function Home() {
                         alignItems: "center",
                         justifyContent: "center",
                         width: "100%",
+                        
                       }}
                     >
                       <View
@@ -229,9 +248,16 @@ export default function Home() {
                           justifyContent: "center",
                           textAlign: "center",
                           width: "100%",
+                          
                         }}
                       >
-                        <Text style={{ textAlign: "center", color: "#87a1fc", fontWeight: '700' }}>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "#87a1fc",
+                            fontWeight: "700",
+                          }}
+                        >
                           LID Control
                         </Text>
                       </View>
@@ -240,10 +266,10 @@ export default function Home() {
                           display: "flex",
                           flexDirection: "row",
                           alignItems: "center",
-                          justifyContent:"center",
+                          justifyContent: "center",
                           textAlign: "center",
-                          marginBottom: 15,
-                          width: '100%'
+                          // marginBottom: 15,
+                          width: "100%",
                         }}
                       >
                         <IconButton
@@ -271,6 +297,33 @@ export default function Home() {
                       </View>
                     </View>
                   </ImageBackground>
+                </View>
+              </View>
+              <View style={HomeStyle.middleSection}>
+                <View style={HomeStyle.mainBox}>
+                  <View style={HomeStyle.iconView}>
+                    <Image source={alertIcon} style={HomeStyle.icon} />
+                  </View>
+                  <View style={HomeStyle.textView}>
+                    <Text style={HomeStyle.headerTxt}>You have a new alert message.</Text>
+                  </View>
+                  <View style={HomeStyle.nextIcon}>
+                    <TouchableOpacity>
+                      {/* <Image source={nextIcon} style={HomeStyle.icon} /> */}
+                      <IconButton
+                        key={1}
+                        onPress={() => handleNextBtn("AlertPage")}
+                        buttonText={""}
+                        buttonIcon={nextIcon}
+                        bgColor={"#FFFFFF"}
+                        txtColor={"#FFFFFF"}
+                        width={25}
+                        height={25}
+                        btnSize={"SM"}
+                        btnType={""}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
 
