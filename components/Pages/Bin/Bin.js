@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
+import ip from "../../../config/ipAddress.json";
 import BinStyle from "./BinStyle";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
 
 export default function Bin() {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [binDetails, setBinDetails] = useState([]);
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(`http://${ip.ipAdress}:3000/bin`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const dataArray = Array.isArray(data) ? data : [data];
+        setBinDetails(dataArray);
+        setError(null);
+        // console.log("Updated state:", dataArray);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        console.error("Error:", error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  console.log('binDetails - ', binDetails);
+
   return (
     <>
       <Header />
@@ -25,41 +54,19 @@ export default function Bin() {
               <Text>Bin Status</Text>
             </View>
           </View>
-
-          <View style={BinStyle.dataBody}>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>2023-11-09</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>18:13</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>Open</Text>
-            </View>
-          </View>
-
-          <View style={BinStyle.dataBody}>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>2023-11-09</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>18:13</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>closed</Text>
-            </View>
-          </View>
-          <View style={BinStyle.dataBody}>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>2023-11-09</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>18:13</Text>
-            </View>
-            <View style={BinStyle.dataBodyCol}>
-              <Text>Emptied</Text>
-            </View>
-          </View>
+          {binDetails.map((data) => (
+              <View style={BinStyle.dataBody} key={data.date + data.time}>
+                <View style={BinStyle.dataBodyCol}>
+                  <Text>{data.date}</Text>
+                </View>
+                <View style={BinStyle.dataBodyCol}>
+                  <Text>{data.time}</Text>
+                </View>
+                <View style={BinStyle.dataBodyCol}>
+                  <Text>{data.status}</Text>
+                </View>
+              </View>
+          ))}
         </View>
       </View>
       <Footer txt={"Bin"} />
