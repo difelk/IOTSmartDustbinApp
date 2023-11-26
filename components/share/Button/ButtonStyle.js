@@ -207,8 +207,8 @@ export default StyleSheet.create({
   widthBtnIconLeft: {
     display: "flex",
     flexDirection: "row",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     minWidth: 160,
     backgroundColor: "#ffffff",
     borderRadius: 50,
@@ -216,7 +216,7 @@ export default StyleSheet.create({
     marginRight: 6,
     marginLeft: 6,
     marginTop: 12,
-    
+
     ...Platform.select({
       ios: {
         shadowColor: "blue",
@@ -314,5 +314,25 @@ export default StyleSheet.create({
         elevation: 2,
       },
     }),
+  },
+
+  tabButton: {
+    borderRadius: 50,
+    display: "flex",
+    alignContent: "center",
+    justifyContent: "center",
+    padding: 12,
+    backgroundColor: "#ffffff",
+  },
+  tabButtonTxt: {
+    color: "#bdcad0",
+  },
+  ActiveTab: {
+    backgroundColor: '#3baded'
+  },
+  ActiveTabTxt: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 600,
   },
 });
