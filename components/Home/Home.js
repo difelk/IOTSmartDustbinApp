@@ -7,6 +7,7 @@ import IconButton from "../share/Button/IconButton";
 import { colors } from "../../styles/constants";
 import Header from "../Header/Header";
 import { useTranslation } from "react-i18next";
+import ip from "../../config/ipAddress.json";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -29,9 +30,26 @@ export default function Home() {
   const crdbkgrnd2 = require("../../assets/background007.jpg");
 
   const navigation = useNavigation();
-  const handleLidControlBtn = (screenName) => {
-    // console.log("screenName - ", screenName);
+  const handleLidControlBtn = async (lidStatus) => {
+    try {
+      const response = await fetch(`http://${ip.ipAdress}:3000/lid/control`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ lidStatus }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      console.log('Lid control successful');
+    } catch (error) {
+      console.error('Error controlling lid:', error);
+    }
   };
+  
 
   const handleComponentControlBtn = (screenName) => {
     navigation.navigate(screenName);
@@ -247,7 +265,7 @@ export default function Home() {
                         }}
                       >
                         <IconButton
-                          onPress={handleLidControlBtn}
+                          onPress={() => handleLidControlBtn('LID_CLOSE')}
                           buttonText={t("CLOSE_LID")}
                           buttonIcon={binCloseIcon}
                           bgColor={"#1c7850"}
@@ -258,7 +276,7 @@ export default function Home() {
                           btnType={"LIDCONTROL"}
                         />
                         <IconButton
-                          onPress={handleLidControlBtn}
+                          onPress={() => handleLidControlBtn('LID_OPEN')}
                           buttonText={t("OPEN_LID")}
                           buttonIcon={binOpenIcon}
                           bgColor={"#1c7850"}
