@@ -58,6 +58,33 @@ export default function Home() {
     } catch (error) {
       console.error('Error controlling lid:', error);
     }
+
+    sendTestMessage()
+  };
+
+  // sending 12c msg sending part is here. let move this letter once we done the uis
+
+  const sendTestMessage = async () => {
+    try {
+      const response = await fetch(`http://${ip.ipAdress}:3000/messages/control`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: 'This is a test message!',
+          timestamp: Date.now(),
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      console.log('Test message sent successfully.');
+    } catch (error) {
+      console.error('Error sending test message:', error);
+    }
   };
   
 
