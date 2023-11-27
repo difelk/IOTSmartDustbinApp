@@ -52,7 +52,8 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "#4363eb",
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     borderRadius: 8,
     // marginBottom: 26,
 
@@ -81,7 +82,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 12,
-    borderRadius: 8,
+    borderRadius: 50, 
     alignItems: "center",
     backgroundColor: "#06f890",
     width: 350,
@@ -93,17 +94,22 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 25,
-    height: 25,
+    width: 50,
+    height: 50,
   },
   textView: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     width: 200,
   },
   headerTxt: {
-    color: "#D3D3D3",
-    fontWeight: "600",
+    color: "#ffffff",
+    fontWeight: "700",
+  },
+  headerTxtSubText: {
+    fontSize: 12,
+    color: "#ffffff",
+    marginTop: 2,
   },
   nextIcon: {},
 

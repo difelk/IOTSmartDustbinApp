@@ -31,10 +31,11 @@ export default function Home() {
   // const notificationIcon = require("../../assets/mail.png");
   // const notificationIcon = require("../../assets/mail.png");
   const notificationIcon = require("../../assets/bellBlueIcon.png");
-  // const existIcon = require("../../assets/ExistIcon.png");
+  const display = require("../../assets/display.png");
   const existIcon = require("../../assets/existBlueIcon.png");
   const crdbkgrnd = require("../../assets/card5.jpg");
   const crdbkgrnd2 = require("../../assets/background007.jpg");
+  const crdbkgrnd3 = require("../../assets/bkgrnd.jpg");
   const alertIcon = require("../../assets/alert.png");
   const nextIcon = require("../../assets/next.png");
 
@@ -318,12 +319,13 @@ export default function Home() {
                 </View>
               </View>
               <View style={HomeStyle.middleSection}>
-                <View style={HomeStyle.mainBox}>
+                <ImageBackground  source={crdbkgrnd3} style={HomeStyle.mainBox} borderRadius={15}>
                   <View style={HomeStyle.iconView}>
-                    <Image source={alertIcon} style={HomeStyle.icon} />
+                    <Image source={display} style={HomeStyle.icon} />
                   </View>
                   <View style={HomeStyle.textView}>
-                    <Text style={HomeStyle.headerTxt}>You have a new alert message.</Text>
+                    <Text style={HomeStyle.headerTxt}>Change Display Messages</Text>
+                    <Text style={HomeStyle.headerTxtSubText}>Alerts, Notifications and Warnings messages</Text>
                   </View>
                   <View style={HomeStyle.nextIcon}>
                     <TouchableOpacity>
@@ -342,7 +344,7 @@ export default function Home() {
                       />
                     </TouchableOpacity>
                   </View>
-                </View>
+                </ImageBackground>
               </View>
 
               <View style={HomeStyle.sectionTwo}>
