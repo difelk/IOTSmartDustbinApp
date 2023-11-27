@@ -76,3 +76,4 @@ yarn-error.*
 # @end expo-cli
 
 config/
+backend/deviceConfig

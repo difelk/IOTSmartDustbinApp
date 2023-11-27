@@ -52,7 +52,8 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "#4363eb",
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     borderRadius: 8,
     // marginBottom: 26,
 
