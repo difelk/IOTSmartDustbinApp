@@ -75,8 +75,30 @@ export default function Settings() {
         </View>
 
         <View style={styles.slideLbWrapper}>
-          <Text style={styles.slidetxtSml}>Sliding Button Text</Text>
+          <Text style={styles.slidetxtSml}>Bin Notifications</Text>
           <SlideButton />
+        </View>
+        <View style={styles.slideLbWrapper}>
+          <Text style={styles.slidetxtSml}>Battery Notifications</Text>
+          <SlideButton />
+        </View>
+        <View style={styles.langDropWrapper}>
+          <Text style={styles.txtSml}>Recording Time</Text>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            onSelectItem={(value) => handleLangChng(value)}
+            style={styles.dropdown}
+            placeholder={
+              value
+                ? items.find((i) => i.value === value).label
+                : t("SELECT_LANGUAGE")
+            }
+          />
         </View>
       </View>
       <Footer />
