@@ -10,6 +10,8 @@ export default function AlertPage() {
     { batteryMsg: "", error: "" },
     { binMsg: "", error: "" },
     { otherMsg: "", error: "" },
+    { batteryDeadMsg: "", error: "" },
+    { binAllmostMsg: "", error: "" },
   ]);
 
   const handleDisplayMessge = (type) => {
@@ -45,6 +47,22 @@ export default function AlertPage() {
           ]);
         }
         break;
+        case "SAVE_BATTERY_DEAD":
+          if (displayMsgs[3].otherMsg.length > 16) {
+            setDisplayMsg((prevMsgs) => [
+              ...prevMsgs.slice(0, 3),
+              { ...prevMsgs[3], error: lengthError },
+            ]);
+          }
+          break;
+          case "BIN_ALMOST":
+            if (displayMsgs[4].otherMsg.length > 16) {
+              setDisplayMsg((prevMsgs) => [
+                ...prevMsgs.slice(0, 4),
+                { ...prevMsgs[4], error: lengthError },
+              ]);
+            }
+            break;
       case "SAVE_OTHER":
         if (displayMsgs[2].otherMsg.length > 16) {
           setDisplayMsg((prevMsgs) => [
@@ -71,6 +89,18 @@ export default function AlertPage() {
           ...prevMsgs.slice(2),
         ]);
         break;
+        case "BATTERY_DEAD":
+          setDisplayMsg((prevMsgs) => [
+            { ...prevMsgs[3], batteryMsg: value, error: "" },
+            ...prevMsgs.slice(3),
+          ]);
+          break;
+          case "BIN_ALMOST":
+            setDisplayMsg((prevMsgs) => [
+              { ...prevMsgs[4], batteryMsg: value, error: "" },
+              ...prevMsgs.slice(4),
+            ]);
+            break;
       case "OTHER":
         setDisplayMsg((prevMsgs) => [
           ...prevMsgs.slice(0, 2),
@@ -84,6 +114,50 @@ export default function AlertPage() {
       <Header />
       <View style={styles.center}>
         <View style={styles.messageAreaWrapper}>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Battery Dead Message
+            </Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Battery Dead"
+                  onChangeText={(value) =>
+                    handleTxtChange(value, "BATTERY_DEAD")
+                  }
+                />
+                {displayMsgs[3].error && (
+                  <Text style={styles.formError}>{displayMsgs[3].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BATTERY_DEAD")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BATTERY_DEAD")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
+          </View>
           <View style={styles.messageBox}>
             <Text style={{ color: "#ffffff", fontWeight: 700 }}>
               Battery Low Message
@@ -120,6 +194,49 @@ export default function AlertPage() {
                 />
                 <MyButton
                   onPress={() => handleDisplayMessge("SAVE_BATTERY")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Bin About to Full Message
+            </Text>
+
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Bin is Almost Full"
+                  onChangeText={(value) => handleTxtChange(value, "BIN_ALMOST")}
+                />
+                {displayMsgs[4].error && (
+                  <Text style={styles.formError}>{displayMsgs[4].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BIN_ALMOST")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BIN_ALMOST")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
