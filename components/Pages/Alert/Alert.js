@@ -336,7 +336,7 @@ export default function AlertPage() {
 }
 
 const styles = StyleSheet.create({
-  center: {
+  editprofleWrapper: {
     display: "flex",
     alignItems: "center",
     padding: 12,
