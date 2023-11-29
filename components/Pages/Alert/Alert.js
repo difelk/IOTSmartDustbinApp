@@ -14,7 +14,6 @@ export default function AlertPage() {
   ]);
 
   const handleDisplayMessage = (type) => {
-    console.log("handleDisplayMessage - ", type);
     switch (type) {
       case "SAVE_BATTERY":
         break;
@@ -61,7 +60,6 @@ export default function AlertPage() {
         }
         break;
         case "SAVE_BATTERY_DEAD":
-          console.log("SAVE_BATTERY_DEAD - ", displayMsgs[3]);
           if (displayMsgs[3].batteryDeadMsg && displayMsgs[3].batteryDeadMsg.length > 16) {
             setDisplayMsg((prevMsgs) => [
               ...prevMsgs.slice(0, 3),
