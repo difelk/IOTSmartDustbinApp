@@ -231,6 +231,30 @@ export default StyleSheet.create({
     }),
   },
 
+  saveBtn: {
+    backgroundColor: "#01c566",
+    borderColor: "none",
+    textAlign: 'center',
+    borderRadius: 8,
+    padding: 12,
+  },
+
+  saveBtnMT5: {
+    backgroundColor: "#01c566",
+    borderColor: "none",
+    textAlign: 'center',
+    borderRadius: 8,
+    padding: 12,
+    marginLeft: 5,
+  },
+
+  whiteText: {
+    color: '#ffffff',
+  },
+  saveBtnMT5Txt: {
+    color: '#ffffff',
+  }
+,
   link: {
     backgroundColor: "unset",
     borderColor: "none",
