@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import { TextInput } from "react-native-gesture-handler";
 import MyButton from "../../share/Button/Button";
 
 export default function AlertPage() {
@@ -11,11 +10,11 @@ export default function AlertPage() {
     { binMsg: "", error: "" },
     { otherMsg: "", error: "" },
     { batteryDeadMsg: "", error: "" },
-    { binAllmostMsg: "", error: "" },
+    { binAlmostMsg: "", error: "" },
   ]);
 
-  const handleDisplayMessge = (type) => {
-    console.log("handleDisplayMessge - ", type);
+  const handleDisplayMessage = (type) => {
+    console.log("handleDisplayMessage - ", type);
     switch (type) {
       case "SAVE_BATTERY":
         break;
@@ -23,15 +22,21 @@ export default function AlertPage() {
         break;
       case "SAVE_OTHER":
         break;
+      case "SAVE_BATTERY_DEAD":
+        break;
+      case "SAVE_BIN_ALMOST":
+        break;
+      default:
+        break;
     }
   };
 
-  const handleSaveMessge = (type) => {
+  const handleSaveMessage = (type) => {
     const lengthError = "Error: Message cannot be more than 16 words";
 
     switch (type) {
       case "SAVE_BATTERY":
-        if (displayMsgs[0].batteryMsg.length > 16) {
+        if (displayMsgs[0].batteryMsg && displayMsgs[0].batteryMsg.length > 16) {
           setDisplayMsg((prevMsgs) => [
             { ...prevMsgs[0], error: lengthError },
             ...prevMsgs.slice(1),
@@ -39,7 +44,7 @@ export default function AlertPage() {
         }
         break;
       case "SAVE_BIN":
-        if (displayMsgs[1].binMsg.length > 16) {
+        if (displayMsgs[1].binMsg && displayMsgs[1].binMsg.length > 16) {
           setDisplayMsg((prevMsgs) => [
             ...prevMsgs.slice(0, 1),
             { ...prevMsgs[1], error: lengthError },
@@ -47,29 +52,33 @@ export default function AlertPage() {
           ]);
         }
         break;
-        case "SAVE_BATTERY_DEAD":
-          if (displayMsgs[3].otherMsg.length > 16) {
-            setDisplayMsg((prevMsgs) => [
-              ...prevMsgs.slice(0, 3),
-              { ...prevMsgs[3], error: lengthError },
-            ]);
-          }
-          break;
-          case "BIN_ALMOST":
-            if (displayMsgs[4].otherMsg.length > 16) {
-              setDisplayMsg((prevMsgs) => [
-                ...prevMsgs.slice(0, 4),
-                { ...prevMsgs[4], error: lengthError },
-              ]);
-            }
-            break;
       case "SAVE_OTHER":
-        if (displayMsgs[2].otherMsg.length > 16) {
+        if (displayMsgs[2].otherMsg && displayMsgs[2].otherMsg.length > 16) {
           setDisplayMsg((prevMsgs) => [
             ...prevMsgs.slice(0, 2),
             { ...prevMsgs[2], error: lengthError },
           ]);
         }
+        break;
+        case "SAVE_BATTERY_DEAD":
+          console.log("SAVE_BATTERY_DEAD - ", displayMsgs[3]);
+          if (displayMsgs[3].batteryDeadMsg && displayMsgs[3].batteryDeadMsg.length > 16) {
+            setDisplayMsg((prevMsgs) => [
+              ...prevMsgs.slice(0, 3),
+              { ...prevMsgs[3], error: lengthError },
+              ...prevMsgs.slice(4),
+            ]);
+          }
+          break;
+      case "SAVE_BIN_ALMOST":
+        if (displayMsgs[4].binAlmostMsg && displayMsgs[4].binAlmostMsg.length > 16) {
+          setDisplayMsg((prevMsgs) => [
+            ...prevMsgs.slice(0, 4),
+            { ...prevMsgs[4], error: lengthError },
+          ]);
+        }
+        break;
+      default:
         break;
     }
   };
@@ -89,23 +98,27 @@ export default function AlertPage() {
           ...prevMsgs.slice(2),
         ]);
         break;
-        case "BATTERY_DEAD":
-          setDisplayMsg((prevMsgs) => [
-            { ...prevMsgs[3], batteryMsg: value, error: "" },
-            ...prevMsgs.slice(3),
-          ]);
-          break;
-          case "BIN_ALMOST":
-            setDisplayMsg((prevMsgs) => [
-              { ...prevMsgs[4], batteryMsg: value, error: "" },
-              ...prevMsgs.slice(4),
-            ]);
-            break;
       case "OTHER":
         setDisplayMsg((prevMsgs) => [
           ...prevMsgs.slice(0, 2),
           { ...prevMsgs[2], otherMsg: value, error: "" },
         ]);
+        break;
+      case "BATTERY_DEAD":
+        setDisplayMsg((prevMsgs) => [
+          ...prevMsgs.slice(0, 3),
+          { ...prevMsgs[3], batteryDeadMsg: value, error: "" },
+          ...prevMsgs.slice(3),
+        ]);
+        break;
+      case "BIN_ALMOST":
+        setDisplayMsg((prevMsgs) => [
+          ...prevMsgs.slice(0, 4),
+          { ...prevMsgs[4], binAlmostMsg: value, error: "" },
+          ...prevMsgs.slice(4),
+        ]);
+        break;
+      default:
         break;
     }
   };
@@ -145,13 +158,13 @@ export default function AlertPage() {
                 }}
               >
                 <MyButton
-                  onPress={() => handleSaveMessge("SAVE_BATTERY_DEAD")}
+                  onPress={() => handleSaveMessage("SAVE_BATTERY_DEAD")}
                   buttonText={"SAVE"}
                   buttonType={"SAVE_W_MT_5"}
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessge("SAVE_BATTERY_DEAD")}
+                  onPress={() => handleDisplayMessage("SAVE_BATTERY_DEAD")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
@@ -187,13 +200,13 @@ export default function AlertPage() {
                 }}
               >
                 <MyButton
-                  onPress={() => handleSaveMessge("SAVE_BATTERY")}
+                  onPress={() => handleSaveMessage("SAVE_BATTERY")}
                   buttonText={"SAVE"}
                   buttonType={"SAVE_W_MT_5"}
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessge("SAVE_BATTERY")}
+                  onPress={() => handleDisplayMessage("SAVE_BATTERY")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
@@ -230,13 +243,13 @@ export default function AlertPage() {
                 }}
               >
                 <MyButton
-                  onPress={() => handleSaveMessge("SAVE_BIN_ALMOST")}
+                  onPress={() => handleSaveMessage("SAVE_BIN_ALMOST")}
                   buttonText={"SAVE"}
                   buttonType={"SAVE_W_MT_5"}
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessge("SAVE_BIN_ALMOST")}
+                  onPress={() => handleDisplayMessage("SAVE_BIN_ALMOST")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
@@ -273,13 +286,13 @@ export default function AlertPage() {
                 }}
               >
                 <MyButton
-                  onPress={() => handleSaveMessge("SAVE_BIN")}
+                  onPress={() => handleSaveMessage("SAVE_BIN")}
                   buttonText={"SAVE"}
                   buttonType={"SAVE_W_MT_5"}
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessge("SAVE_BIN")}
+                  onPress={() => handleDisplayMessage("SAVE_BIN")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
@@ -315,13 +328,13 @@ export default function AlertPage() {
                 }}
               >
                 <MyButton
-                  onPress={() => handleSaveMessge("SAVE_OTHER")}
+                  onPress={() => handleSaveMessage("SAVE_OTHER")}
                   buttonText={"SAVE"}
                   buttonType={"SAVE_W_MT_5"}
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessge("SAVE_OTHER")}
+                  onPress={() => handleDisplayMessage("SAVE_OTHER")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />
