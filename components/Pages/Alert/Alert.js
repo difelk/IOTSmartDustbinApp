@@ -1,69 +1,332 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
+import { TextInput } from "react-native-gesture-handler";
+import MyButton from "../../share/Button/Button";
 
 export default function AlertPage() {
-  const [formValues, setFormValues] = useState({
-    BinFull: "",
-    BatterLow: "",
-    CustomMsg: "",
-  });
+  const [displayMsgs, setDisplayMsg] = useState([
+    { batteryMsg: "", error: "" },
+    { binMsg: "", error: "" },
+    { otherMsg: "", error: "" },
+    { batteryDeadMsg: "", error: "" },
+    { binAllmostMsg: "", error: "" },
+  ]);
 
-  const handleButtonPress = () => {
-    console.log("pressed!");
+  const handleDisplayMessge = (type) => {
+    console.log("handleDisplayMessge - ", type);
+    switch (type) {
+      case "SAVE_BATTERY":
+        break;
+      case "SAVE_BIN":
+        break;
+      case "SAVE_OTHER":
+        break;
+    }
   };
 
-  console.log("Form Values: ", formValues);
+  const handleSaveMessge = (type) => {
+    const lengthError = "Error: Message cannot be more than 16 words";
+
+    switch (type) {
+      case "SAVE_BATTERY":
+        if (displayMsgs[0].batteryMsg.length > 16) {
+          setDisplayMsg((prevMsgs) => [
+            { ...prevMsgs[0], error: lengthError },
+            ...prevMsgs.slice(1),
+          ]);
+        }
+        break;
+      case "SAVE_BIN":
+        if (displayMsgs[1].binMsg.length > 16) {
+          setDisplayMsg((prevMsgs) => [
+            ...prevMsgs.slice(0, 1),
+            { ...prevMsgs[1], error: lengthError },
+            ...prevMsgs.slice(2),
+          ]);
+        }
+        break;
+        case "SAVE_BATTERY_DEAD":
+          if (displayMsgs[3].otherMsg.length > 16) {
+            setDisplayMsg((prevMsgs) => [
+              ...prevMsgs.slice(0, 3),
+              { ...prevMsgs[3], error: lengthError },
+            ]);
+          }
+          break;
+          case "BIN_ALMOST":
+            if (displayMsgs[4].otherMsg.length > 16) {
+              setDisplayMsg((prevMsgs) => [
+                ...prevMsgs.slice(0, 4),
+                { ...prevMsgs[4], error: lengthError },
+              ]);
+            }
+            break;
+      case "SAVE_OTHER":
+        if (displayMsgs[2].otherMsg.length > 16) {
+          setDisplayMsg((prevMsgs) => [
+            ...prevMsgs.slice(0, 2),
+            { ...prevMsgs[2], error: lengthError },
+          ]);
+        }
+        break;
+    }
+  };
+
+  const handleTxtChange = (value, type) => {
+    switch (type) {
+      case "BATTERY":
+        setDisplayMsg((prevMsgs) => [
+          { ...prevMsgs[0], batteryMsg: value, error: "" },
+          ...prevMsgs.slice(1),
+        ]);
+        break;
+      case "BIN":
+        setDisplayMsg((prevMsgs) => [
+          ...prevMsgs.slice(0, 1),
+          { ...prevMsgs[1], binMsg: value, error: "" },
+          ...prevMsgs.slice(2),
+        ]);
+        break;
+        case "BATTERY_DEAD":
+          setDisplayMsg((prevMsgs) => [
+            { ...prevMsgs[3], batteryMsg: value, error: "" },
+            ...prevMsgs.slice(3),
+          ]);
+          break;
+          case "BIN_ALMOST":
+            setDisplayMsg((prevMsgs) => [
+              { ...prevMsgs[4], batteryMsg: value, error: "" },
+              ...prevMsgs.slice(4),
+            ]);
+            break;
+      case "OTHER":
+        setDisplayMsg((prevMsgs) => [
+          ...prevMsgs.slice(0, 2),
+          { ...prevMsgs[2], otherMsg: value, error: "" },
+        ]);
+        break;
+    }
+  };
   return (
     <>
       <Header />
-      <View style={styles.editprofleWrapper}>
-        <View style={styles.parentBox}>
-          <View style={styles.buttonsBox}>
-            <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-              <Text style={styles.cancelBtnText}>Cancel</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.pageTxt}>Alert Page</Text>
-
-            <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-              <Text style={styles.saveBtnText}>Save</Text>
-            </TouchableOpacity>
+      <View style={styles.center}>
+        <View style={styles.messageAreaWrapper}>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Battery Dead Message
+            </Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Battery Dead"
+                  onChangeText={(value) =>
+                    handleTxtChange(value, "BATTERY_DEAD")
+                  }
+                />
+                {displayMsgs[3].error && (
+                  <Text style={styles.formError}>{displayMsgs[3].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BATTERY_DEAD")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BATTERY_DEAD")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
           </View>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Battery Low Message
+            </Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Battery Low"
+                  onChangeText={(value) => handleTxtChange(value, "BATTERY")}
+                />
+                {displayMsgs[0].error && (
+                  <Text style={styles.formError}>{displayMsgs[0].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BATTERY")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BATTERY")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Bin About to Full Message
+            </Text>
 
-          <View style={styles.contentBox}>
-            <Text style={styles.headerTxt}>Bin Full</Text>
-            <TextInput
-              onChangeText={(value) => setFormValues({ ...formValues, BinFull: value })}
-              style={styles.inputTxt}
-              placeholder="Ex: Bin is full"
-            />
-            <Text style={styles.errMsg}></Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Bin is Almost Full"
+                  onChangeText={(value) => handleTxtChange(value, "BIN_ALMOST")}
+                />
+                {displayMsgs[4].error && (
+                  <Text style={styles.formError}>{displayMsgs[4].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BIN_ALMOST")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BIN_ALMOST")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Bin Full Message
+            </Text>
 
-            <Text style={styles.headerTxt}>Battery Low</Text>
-            <TextInput
-              onChangeText={(value) => setFormValues({ ...formValues, BatterLow: value })}
-              style={styles.number}
-              placeholder="Ex: Battery is low"
-            />
-            <Text style={styles.errMsg}></Text>
-
-            <Text style={styles.headerTxt}>Custom Message</Text>
-            <TextInput
-              onChangeText={(value) => setFormValues({ ...formValues, CustomMsg: value })}
-              style={styles.inputTxt}
-              placeholder="Ex: Custome Message"
-            />
-
-            <Text style={styles.errMsg}></Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Bin is Full"
+                  onChangeText={(value) => handleTxtChange(value, "BIN")}
+                />
+                {displayMsgs[1].error && (
+                  <Text style={styles.formError}>{displayMsgs[1].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_BIN")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_BIN")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={styles.messageBox}>
+            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
+              Custom Message
+            </Text>
+            <View style={styles.messageBoxCont}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <TextInput
+                  style={styles.inputTxt}
+                  placeholder="Ex: Alert Message"
+                  onChangeText={(value) => handleTxtChange(value, "OTHER")}
+                />
+                {displayMsgs[2].error && (
+                  <Text style={styles.formError}>{displayMsgs[2].error}</Text>
+                )}
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <MyButton
+                  onPress={() => handleSaveMessge("SAVE_OTHER")}
+                  buttonText={"SAVE"}
+                  buttonType={"SAVE_W_MT_5"}
+                  style={{ marginBottom: 4 }}
+                />
+                <MyButton
+                  onPress={() => handleDisplayMessge("SAVE_OTHER")}
+                  buttonText={"Display Now"}
+                  buttonType={"SAVE_W_MT_5"}
+                />
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -75,78 +338,58 @@ export default function AlertPage() {
 const styles = StyleSheet.create({
   editprofleWrapper: {
     display: "flex",
-    flexDirection: "column",
-    padding: 18,
-    width: "100%",
-    marginTop: 20,
+    alignItems: "center",
+    padding: 12,
   },
-  pageTxt: {
-    fontSize: 20,
-    fontWeight: "600",
-  },
-  parentBox: {
+  messageAreaWrapper: {
     display: "flex",
     flexDirection: "column",
-    padding: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    // overflow: 'hidden'
   },
-  buttonsBox: {
+  messageBox: {
+    width: 350,
+    // minWidth: 320,
+
+    padding: 12,
+    backgroundColor: "#4878f5",
+    borderRadius: 8,
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 8,
+    marginBottom: 8,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: "blue",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      },
+      android: {
+        shadowColor: "#191952",
+        elevation: 2,
+      },
+    }),
+  },
+  messageBoxCont: {
+    width: "100%",
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
-  },
-  button: {
-    padding: 8,
-    borderRadius: 4,
-  },
-  cancelBtnText: {
-    color: "#130E82",
-    fontSize: 16,
-  },
-  saveBtnText: {
-    color: "#6E6666",
-    fontSize: 16,
-  },
-  imageBox: {
-    margin: 12,
-    alignItems: "center",
-  },
-  icon: {
-    width: 70,
-    height: 70,
-  },
-  contentBox: {
-    margin: 12,
-  },
-  headerTxt: {
-    color: "#000000",
-    fontWeight: "600",
-    marginBottom: 12,
   },
   inputTxt: {
-    color: "#3266B4",
-    fontWeight: "400",
     borderBottomWidth: 1,
-    borderBottomColor: "gray",
+    borderColor: "#ffffff",
+    padding: 4,
+    width: 150,
   },
-  passwordtxt: {
-    color: "#3266B4",
-    fontWeight: "400",
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
-  },
-  number: {
-    color: "#3266B4",
-    fontWeight: "400",
-    borderBottomWidth: 1,
-    borderBottomColor: "gray",
-  },
-  errMsg: {
-    fontSize: 12,
+  formError: {
     color: "red",
-    marginBottom: 16,
-    paddingTop: 4,
-    paddingBottom: 4,
+    fontSize: 14,
+    width: 150,
+    marginTop: 4,
   },
 });

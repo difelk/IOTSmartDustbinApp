@@ -10,7 +10,7 @@ const MyButton = ({ onPress, buttonText, buttonType, isItActive }) => {
       ? ButtonStyle.link
       : buttonType === "TAB"
       ? isItActive ? [ButtonStyle.tabButton, ButtonStyle.ActiveTab] :  ButtonStyle.tabButton
-      : ButtonStyle.button;
+      : buttonType === "SAVE"? ButtonStyle.saveBtn : buttonType === "SAVE_W_MT_5"? ButtonStyle.saveBtnMT5 :  ButtonStyle.button;
   const textStyles =
     buttonType === "PRIMARY"
       ? ButtonStyle.primaryBtnText
@@ -18,7 +18,7 @@ const MyButton = ({ onPress, buttonText, buttonType, isItActive }) => {
       ? ButtonStyle.linkText
       : buttonType === "TAB"
       ? isItActive ? [ButtonStyle.tabButtonTxt, ButtonStyle.ActiveTabTxt] : ButtonStyle.tabButtonTxt
-      : ButtonStyle.buttonText;
+      : buttonType === "SAVE"? ButtonStyle.whiteText :buttonType === "SAVE_W_MT_5"? ButtonStyle.saveBtnMT5Txt :   ButtonStyle.buttonText;
 
   return (
     <TouchableOpacity onPress={onPress}>
