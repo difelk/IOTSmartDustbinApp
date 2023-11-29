@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 import HeaderStyle from "./HeaderStyle";
 import MyButton from "../share/Button/Button";
 
 export default function Header() {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const mainLogo = require("../../assets/LogoIcon.png");
-  const handleOnClick = (screenName) => {
-    // console.log(value);
-    navigation.navigate(screenName);
-  };
+  // const handleOnClick = (screenName) => {
+  //   // console.log(value);
+  //   navigation.navigate(screenName);
+  // };
 
   return (
     <View style={HeaderStyle.headerWrapper}>
@@ -24,13 +24,13 @@ export default function Header() {
         </View>
       </View>
       <View>
-        <View>
+        {/* <View>
           <MyButton
             onPress={() => handleOnClick("EDITPROFILE")}
             buttonText={"View Profile"}
             buttonType={"PRIMARY"}
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );
