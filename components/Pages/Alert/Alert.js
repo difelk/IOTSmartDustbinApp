@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
   center: {
     display: "flex",
     alignItems: "center",
-    padding: 40,
+    padding: 12,
   },
   messageAreaWrapper: {
     display: "flex",
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
     // overflow: 'hidden'
   },
   messageBox: {
-    width: 360,
+    width: 350,
     // minWidth: 320,
 
     padding: 12,
