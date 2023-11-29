@@ -6,8 +6,8 @@ export default StyleSheet.create({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    // backgroundColor: colors.backgroundColor2,
-    padding: 16,
+    backgroundColor: "#4363eb",
+    // padding: 16,
     paddingBottom: 50,
   },
   subTitleTxt: {
@@ -18,43 +18,44 @@ export default StyleSheet.create({
   },
 
   mainTitleTxt: {
-    fontSize: 16,
-    color: '#ffffff',
-    fontWeight: "600",
-    marginTop: 16,
-    marginBottom:16,
+    fontSize: 18,
+    color: "#ffffff",
+    fontWeight: "700",
+    // marginTop: 16,
+    marginBottom: 8,
   },
-  stripRuleTop:{
-    width:260,
+  stripRuleTop: {
+    width: 260,
     borderBottomWidth: 1,
-    borderBottomColor: '#c6c6d457',
-    borderStyle: 'solid',
+    borderBottomColor: "#c6c6d457",
+    borderStyle: "solid",
     padding: 10,
-    position: 'absolute',
+    position: "absolute",
     right: 11,
     top: 7,
   },
 
-  stripRuleBottom:{
-    width:260,
+  stripRuleBottom: {
+    width: 260,
     borderBottomWidth: 1,
-    borderBottomColor: '#c6c6d457',
-    borderStyle: 'solid',
+    borderBottomColor: "#c6c6d457",
+    borderStyle: "solid",
     padding: 10,
-    position: 'absolute',
+    position: "absolute",
     right: 5,
     top: -7,
   },
-  
+
   greenBox: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    // backgroundColor: "#3AE199",
-    padding: 16,
+    backgroundColor: "#4363eb",
+    paddingLeft: 16,
+    paddingRight: 16,
     borderRadius: 8,
-    marginBottom: 26,
+    // marginBottom: 26,
 
     ...Platform.select({
       ios: {
@@ -65,25 +66,92 @@ export default StyleSheet.create({
       },
       android: {
         shadowColor: "black",
-        elevation:20,
+        elevation: 0,
       },
     }),
   },
+  middleSection: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 8,
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  mainBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 12,
+    borderRadius: 50, 
+    alignItems: "center",
+    backgroundColor: "#06f890",
+    width: 350,
+    height: 80,
+  },
+  iconView: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    width: 50,
+    height: 50,
+  },
+  textView: {
+    display: "flex",
+    flexDirection: "column",
+    width: 200,
+  },
+  headerTxt: {
+    color: "#ffffff",
+    fontWeight: "700",
+  },
+  headerTxtSubText: {
+    fontSize: 12,
+    color: "#ffffff",
+    marginTop: 2,
+  },
+  nextIcon: {},
+
+  sectionTwo: {
+    backgroundColor: "#ffffff",
+    width: "100%",
+    height: "100%",
+    padding: 20,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    ...Platform.select({
+      ios: {
+        shadowColor: "blue",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      },
+      android: {
+        shadowColor: "#191952",
+        elevation: 50,
+      },
+    }),
+  },
+
   homeBtnsList: {
     display: "none",
-    marginBottom:50,
-    paddingBottom:50,
-    height:100,
-
+    marginBottom: 50,
+    paddingBottom: 50,
+    height: 100,
   },
-  servicesTextWrapper:{
+  bkgrnfBlue: {
+    backgroundColor: "#4363eb",
+  },
+  servicesTextWrapper: {
     marginBottom: 20,
-    marginTop:5,
+    marginTop: 5,
+    backgroundColor: "#ffffff",
   },
-  servicesTex:{
-      fontSize: 16,
-      fontWeight:'600',
-      color: '#ffffff',
+  servicesTex: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#373737",
   },
   whiteTxt: {
     color: colors.white,
@@ -105,17 +173,17 @@ export default StyleSheet.create({
     height: 26,
     marginRight: 8,
   },
-  greenboxShadow:{
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
-  }
+  greenboxShadow: {
+    // ...Platform.select({
+    //   ios: {
+    //     shadowColor: "black",
+    //     shadowOffset: { width: 0, height: 4 },
+    //     shadowOpacity: 0.1,
+    //     shadowRadius: 8,
+    //   },
+    //   android: {
+    //     elevation: 8,
+    //   },
+    // }),
+  },
 });

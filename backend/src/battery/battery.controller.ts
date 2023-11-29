@@ -7,7 +7,16 @@ export class BatteryController {
   constructor(private readonly batteryService: BatteryService) {}
 
   @Get()
-  getBatteryDetails(): BatteryData[] {
-    return this.batteryService.getBatteryData();
+  async getBatteryDetails(): Promise<BatteryData[]> {
+    try {
+      const batteryData: BatteryData[] =
+        await this.batteryService.getBatteryData();
+      console.log('controller bat - ', batteryData);
+
+      return batteryData;
+    } catch (error) {
+      console.error('Error in battery controller:', error);
+      throw error;
+    }
   }
 }

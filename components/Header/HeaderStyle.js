@@ -11,16 +11,21 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: '#81e5c7',
+    backgroundColor: "#4363eb",
+  },
+  logoIcon: {
+    width: "90%",
+    height: "90%",
   },
   name: {
-    color: colors.header1,
+    color: "#ffffff",
     fontSize: 15,
-    fontWeight: "600",
+    fontWeight: "700",
   },
   title: {
-    color: colors.subTxt1,
-    fontSize: 14,
+    color: '#87a1fc',
+    fontSize: 12,
+    fontWeight: "500",
   },
   profileDetails: {
     display: "flex",
@@ -31,8 +36,23 @@ export default StyleSheet.create({
       width: 50,
       height: 50,
       borderRadius: 25,
-      backgroundColor: colors.black,
+      // backgroundColor:'#ffffff',
       marginRight: 12,
+      display:'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      ...Platform.select({
+        ios: {
+          shadowColor: "blue",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.1,
+          shadowRadius: 20,
+        },
+        android: {
+          shadowColor: "black",
+          elevation:10,
+        },
+      }),
   },
   profilePicTextSection: {
     display: "flex",
