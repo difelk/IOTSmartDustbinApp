@@ -8,10 +8,21 @@ import AlertBox from "../../share/AlertBox";
 import ip from "../../../config/ipAddress.json";
 import Header from "../../Header/Header";
 import MyButton from "../../share/Button/Button";
+import CustomeLineCharts from "../../share/Charts/CustomLineCharts";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
   const [batteryDetails, setBatteryDetails] = useState([]);
+  const [analysBatteryData, setAnalysBatteryData] = useState({
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // line color
+        strokeWidth: 4, // line width
+      }
+    ],
+  });
   const [error, setError] = useState(null);
   const batteryIcon80To100 = require("../../../assets/empty-battery-status-80-to-100.png");
   const batteryIcon60To80 = require("../../../assets/empty-battery-status-60.png");
@@ -136,7 +147,14 @@ export default function Battery() {
               </View>
             </View>
 
-            <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
               <View style={BatteryStyle.tabBtnWraper}>
                 <MyButton
                   onPress={() => handleTabChange("HISTORY")}
@@ -152,86 +170,62 @@ export default function Battery() {
                 />
               </View>
             </View>
-            {/* <View style={BatteryStyle.headerSection}>
-              <View style={BatteryStyle.headerCol}>
-                <Text>Date</Text>
-              </View>
-              <View style={BatteryStyle.headerCol}>
-                <Text>Time</Text>
-              </View>
-              <View style={BatteryStyle.headerCol}>
-                <Text>Percentage</Text>
-              </View>
-            </View> */}
-
             <View style={BatteryStyle.columnWrap}>
               {!isLoading ? (
-                activeTab === 'HISTORY' ?
-                batteryDetails.map((data, index) => (
-                  <View
-                    style={BatteryStyle.columnItem}
-                    key={`${data.date}-${data.time}-${index}`}
-                  >
-                    <View style={BatteryStyle.columnItemDetails}>
-                      <View style={BatteryStyle.columnItemGroupDetails}>
-                        <Text style={BatteryStyle.columnItemDetailHeader}>
-                          Status:{" "}
-                        </Text>
-                        <Text style={getStyleAccordngData(data).statusClass}>
-                          {data.percentage}%
-                        </Text>
-                        {data.percentage < 30 ? (
-                          <Image
-                            source={noticeIcon}
-                            style={[
-                              BatteryStyle.noticeIcon,
-                              { width: 23, height: 23 },
-                            ]}
-                          />
-                        ) : (
-                          ""
-                        )}
+                activeTab === "HISTORY" ? (
+                  batteryDetails.map((data, index) => (
+                    <View
+                      style={BatteryStyle.columnItem}
+                      key={`${data.date}-${data.time}-${index}`}
+                    >
+                      <View style={BatteryStyle.columnItemDetails}>
+                        <View style={BatteryStyle.columnItemGroupDetails}>
+                          <Text style={BatteryStyle.columnItemDetailHeader}>
+                            Status:{" "}
+                          </Text>
+                          <Text style={getStyleAccordngData(data).statusClass}>
+                            {data.percentage}%
+                          </Text>
+                          {data.percentage < 30 ? (
+                            <Image
+                              source={noticeIcon}
+                              style={[
+                                BatteryStyle.noticeIcon,
+                                { width: 23, height: 23 },
+                              ]}
+                            />
+                          ) : (
+                            ""
+                          )}
+                        </View>
+                        <Text
+                          style={BatteryStyle.columnItemDetailSubHeader}
+                        >{`${data.date} ${data.time}`}</Text>
                       </View>
-                      <Text
-                        style={BatteryStyle.columnItemDetailSubHeader}
-                      >{`${data.date} ${data.time}`}</Text>
+                      <View style={BatteryStyle.statusIconWrapper}>
+                        <Image
+                          source={getStyleAccordngData(data).icon}
+                          style={[
+                            BatteryStyle.statusIcon,
+                            { width: 35, height: 35 },
+                          ]}
+                        />
+                        <View style={getStyleAccordngData(data).classType} />
+                      </View>
                     </View>
-                    <View style={BatteryStyle.statusIconWrapper}>
-                      <Image
-                        source={getStyleAccordngData(data).icon}
-                        style={[
-                          BatteryStyle.statusIcon,
-                          { width: 35, height: 35 },
-                        ]}
-                      />
-                      <View style={getStyleAccordngData(data).classType} />
-                    </View>
+                  ))
+                ) : (
+                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                   {analysBatteryData.labels.length > 0 && analysBatteryData.datasets[0].data.length > 0 ? 
+                    <CustomeLineCharts data={analysBatteryData} width={350} height={220}/>
+                  : <Text>No Data To Show</Text>
+                  }
                   </View>
-                )) : <View>
-                  <Text>Simple jack</Text>
-                </View>
+                )
               ) : (
                 <Loader />
               )}
             </View>
-
-            {/* {batteryDetails &&
-              batteryDetails.map((data, index) => (
-                <View
-                  style={BatteryStyle.dataBody}
-                  key={`${data.date}-${data.time}-${index}`}
-                >
-                  <View style={BatteryStyle.dataBodyCol}>
-                    <Text>{data.date}</Text>
-                  </View>
-                  <View style={BatteryStyle.dataBodyCol}>
-                    <Text>{data.time}</Text>
-                  </View>
-                  <View style={BatteryStyle.dataBodyCol}>
-                    <Text>{data.percentage}%</Text>
-                  </View>
-                </View>
-              ))} */}
           </View>
         )}
       </View>
