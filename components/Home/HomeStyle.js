@@ -51,11 +51,9 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#4363eb",
     paddingLeft: 16,
     paddingRight: 16,
     borderRadius: 8,
-    // marginBottom: 26,
 
     ...Platform.select({
       ios: {
