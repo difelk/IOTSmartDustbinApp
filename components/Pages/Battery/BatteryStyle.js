@@ -11,6 +11,8 @@ export default StyleSheet.create({
     paddingTop: 16,
     paddingLeft: 12,
     paddingRight: 8,
+    paddingBottom: 50,
+    marginBottom:60,
   },
 
   pageName: {
@@ -256,4 +258,12 @@ export default StyleSheet.create({
     borderRadius: 50,
     maxWidth: 275,
   },
+
+  filterWrapper: {
+    marginBottom: 8,
+    display:'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  }
 });

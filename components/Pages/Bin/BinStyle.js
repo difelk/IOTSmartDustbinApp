@@ -10,6 +10,8 @@ export default StyleSheet.create({
     paddingTop: 16,
     paddingLeft: 12,
     paddingRight: 8,
+    paddingBottom: 50,
+    marginBottom:60,
   },
 
   pageName: {

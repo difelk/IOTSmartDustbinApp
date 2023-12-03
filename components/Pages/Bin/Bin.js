@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import ip from "../../../config/ipAddress.json";
 import BinStyle from "./BinStyle";
 import Header from "../../Header/Header";
@@ -94,7 +94,7 @@ export default function Bin() {
   return (
     <>
       <Header />
-      <View style={BinStyle.mainWrapper}>
+      <ScrollView style={BinStyle.mainWrapper}>
         {error ? (
           <AlertBox type={error ? "ERROR" : ""} description={error} />
         ) : (
@@ -287,7 +287,7 @@ export default function Bin() {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
       <Footer txt={"Bin"} />
     </>
   );

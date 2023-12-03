@@ -7,6 +7,13 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  dropdown: {
+    width: 200,
+    height: 50,
+    marginLeft: 8,
+    marginRight: 8,
+  },
   text: {
     fontSize: 18,
     color: colors.secondary,
