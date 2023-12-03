@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import BatteryStyle from "./BatteryStyle";
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
@@ -20,7 +20,7 @@ export default function Battery() {
         data: [20, 45, 28, 80, 99, 43],
         color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // line color
         strokeWidth: 4, // line width
-      }
+      },
     ],
   });
   const [error, setError] = useState(null);
@@ -30,6 +30,8 @@ export default function Battery() {
   const batteryIcon0 = require("../../../assets/empty-battery-status-0.png");
   const noticeIcon = require("../../../assets/noticeIcon.png");
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleAnalysisData = (values) => {};
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,6 +45,7 @@ export default function Battery() {
       .then((data) => {
         const dataArray = Array.isArray(data) ? data : [data];
         setBatteryDetails(dataArray);
+        handleAnalysisData(dataArray);
         setError(null);
         // console.log("Updated state:", dataArray);
         setIsLoading(false);
@@ -96,7 +99,7 @@ export default function Battery() {
   return (
     <>
       <Header />
-      <View style={BatteryStyle.mainWrapper}>
+      <ScrollView style={BatteryStyle.mainWrapper}>
         {error ? (
           <AlertBox type={error ? "ERROR" : ""} description={error} />
         ) : (
@@ -215,11 +218,33 @@ export default function Battery() {
                     </View>
                   ))
                 ) : (
-                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                   {analysBatteryData.labels.length > 0 && analysBatteryData.datasets[0].data.length > 0 ? 
-                    <CustomeLineCharts data={analysBatteryData} width={350} height={220}/>
-                  : <Text>No Data To Show</Text>
-                  }
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 12,
+                      paddingBottom: 8,
+                    }}
+                  >
+                    {analysBatteryData.labels.length > 0 &&
+                    analysBatteryData.datasets[0].data.length > 0 ? (
+                      <>
+                      <View style={{display:'flex', flexDirection: 'column'}}>
+                      <View style={BatteryStyle.filterWrapper}>
+                      <Text>Sort By: </Text>
+                      <View></View>
+                      </View>
+                        <CustomeLineCharts
+                          data={analysBatteryData}
+                          width={350}
+                          height={220}
+                        />
+                        </View>
+                      </>
+                    ) : (
+                      <Text>No Data To Show</Text>
+                    )}
                   </View>
                 )
               ) : (
@@ -228,7 +253,7 @@ export default function Battery() {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
       <Footer txt={"Battery"} />
     </>
   );
