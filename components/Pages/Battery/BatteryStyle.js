@@ -260,6 +260,7 @@ export default StyleSheet.create({
   },
 
   filterWrapper: {
+    minWidth: 305,
     marginBottom: 8,
     display:'flex',
     flexDirection: 'row',
