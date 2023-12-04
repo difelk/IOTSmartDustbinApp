@@ -12,7 +12,7 @@ export default StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 8,
     paddingBottom: 50,
-    marginBottom:60,
+    marginBottom: 60,
   },
 
   pageName: {
@@ -251,7 +251,7 @@ export default StyleSheet.create({
   tabBtnWraper: {
     backgroundColor: "#ffffff",
     display: "flex",
-    flexDirection: 'row',
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 8,
@@ -260,11 +260,11 @@ export default StyleSheet.create({
   },
 
   filterWrapper: {
-    minWidth: 305,
+    width: '100%',
     marginBottom: 8,
-    display:'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  }
+    display: "flex",
+    flexDirection: 'column',
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
 });
