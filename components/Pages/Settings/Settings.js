@@ -41,9 +41,28 @@ export default function Settings() {
     // console.log("display name is - ", value);
   };
 
+  const [binRecordingOpen, setBinRecordingOpen] = useState(false);
+  const [binSelectedItem, setBinSelectedItem] = useState("4 Hour");
+
+  const handleBinRecordingTime = (value) => {
+    setBinSelectedItem(value);
+    console.log("RECORDINGG TIME - ", value);
+  };
+
+  const [batteryRecordingOpen, setBatteryRecordingOpen] = useState(false);
+  const [batterySelectedItem, setBatterySelectedItem] = useState("4 Hour");
+
+  const handleBatteryRecordingTime = (value) => {
+    setBatterySelectedItem(value);
+    console.log("RECORDINGG TIME - ", value);
+  };
+
+  const [binNotification, setBinNotification] = useState(false);
+  console.log("Toggle bin notify ", binNotification);
+
   return (
     <>
-     <Header />
+      <Header />
       <View style={styles.settingsWrapper}>
         <Text style={styles.mainHeader}>{t("SETTINGS")}</Text>
         <View style={styles.langDropWrapper}>
@@ -76,8 +95,36 @@ export default function Settings() {
 
         <View style={styles.slideLbWrapper}>
           <Text style={styles.slidetxtSml}>Bin Notifications</Text>
-          <SlideButton />
+          <SlideButton setBinNotification={setBinNotification} />
         </View>
+        {binNotification ? (
+          <View style={styles.langDropWrapper}>
+            <Text style={styles.txtSml}>Recording Time</Text>
+            <DropDownPicker
+              open={binRecordingOpen}
+              value={binSelectedItem}
+              items={[
+                { label: "1 Hour", value: "1 Hour" },
+                { label: "2 Hour", value: "2 Hour" },
+                { label: "4 Hour", value: "4 Hour" },
+                { label: "8 Hour", value: "8 Hour" },
+                { label: "12 Hour", value: "12 Hour" },
+                { label: "24 Hour", value: "24 Hour" },
+                { label: "48 Hour", value: "48 Hour" },
+                { label: "60 Hour", value: "60 Hour" },
+              ]}
+              setValue={setBinSelectedItem}
+              setOpen={setBinRecordingOpen}
+              style={[styles.dropdown]}
+              placeholder={
+                binSelectedItem ? binSelectedItem : "Select Recording Time"
+              }
+              onSelectItem={(value) => handleBinRecordingTime(value)}
+            />
+          </View>
+        ) : (
+          ""
+        )}
         <View style={styles.slideLbWrapper}>
           <Text style={styles.slidetxtSml}>Battery Notifications</Text>
           <SlideButton />
@@ -85,23 +132,31 @@ export default function Settings() {
         <View style={styles.langDropWrapper}>
           <Text style={styles.txtSml}>Recording Time</Text>
           <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            onSelectItem={(value) => handleLangChng(value)}
-            style={styles.dropdown}
+            open={batteryRecordingOpen}
+            value={batterySelectedItem}
+            items={[
+              { label: "1 Hour", value: "1 Hour" },
+              { label: "2 Hour", value: "2 Hour" },
+              { label: "4 Hour", value: "4 Hour" },
+              { label: "8 Hour", value: "8 Hour" },
+              { label: "12 Hour", value: "12 Hour" },
+              { label: "24 Hour", value: "24 Hour" },
+              { label: "48 Hour", value: "48 Hour" },
+              { label: "60 Hour", value: "60 Hour" },
+            ]}
+            setValue={setBatterySelectedItem}
+            setOpen={setBatteryRecordingOpen}
+            style={[styles.dropdown, styles.dropdownOverlap]}
             placeholder={
-              value
-                ? items.find((i) => i.value === value).label
-                : t("SELECT_LANGUAGE")
+              batterySelectedItem
+                ? batterySelectedItem
+                : "Select Recording Time"
             }
+            onSelectItem={(value) => handleBatteryRecordingTime(value)}
           />
         </View>
       </View>
-      <Footer />
+      <Footer txt={"Settings"} />
     </>
   );
 }
@@ -115,6 +170,7 @@ const styles = StyleSheet.create({
     // marginRight:8,
     width: "100%",
     marginTop: 20,
+    padding: 12,
   },
   mainHeader: {
     fontSize: 14,
@@ -168,5 +224,8 @@ const styles = StyleSheet.create({
   },
   inputMrgLf7: {
     marginLeft: 7,
+  },
+  dropdownOverlap: {
+    zIndex: 1,
   },
 });

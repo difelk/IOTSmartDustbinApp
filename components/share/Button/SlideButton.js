@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 
-const SlideButton = () => {
+const SlideButton = ({setBinNotification}) => {
   const [toggleSwitch, setToggleSwitch] = useState(false);
 
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -16,6 +16,7 @@ const SlideButton = () => {
 
   const onPress = () => {
     setToggleSwitch(!toggleSwitch);
+    setBinNotification(toggleSwitch ? false : true);
   };
 
   const slideButtonStyle = {
