@@ -9,6 +9,7 @@ import ip from "../../../config/ipAddress.json";
 import Header from "../../Header/Header";
 import MyButton from "../../share/Button/Button";
 import CustomeLineCharts from "../../share/Charts/CustomLineCharts";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -30,6 +31,28 @@ export default function Battery() {
   const batteryIcon0 = require("../../../assets/empty-battery-status-0.png");
   const noticeIcon = require("../../../assets/noticeIcon.png");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [sortByopen, setSortByOpen] = useState(false);
+  const [selectedMainSortvalue, setSelectedMainSortvalue] = useState(2);
+  // const [mainSortItems, setMainSortItems] = useState([
+  //   { label: "January", value: 1 },
+  //   { label: "February", value: 2 },
+  //   { label: "March", value: 3 },
+  //   { label: "April", value: 4 },
+  //   { label: "May", value: 5 },
+  //   { label: "June", value: 6 },
+  //   { label: "July", value: 7 },
+  //   { label: "August", value: 8 },
+  //   { label: "September", value: 9 },
+  //   { label: "October", value: 10 },
+  //   { label: "November", value: 11 },
+  //   { label: "December", value: 12 },
+  // ]);
+  const [mainSortItems, setMainSortItems] = useState([
+    { label: "Years", value: 1 },
+    { label: "Months", value: 2 },
+    { label: "Days", value: 3 },
+  ]);
 
   const handleAnalysisData = (values) => {};
 
@@ -230,16 +253,73 @@ export default function Battery() {
                     {analysBatteryData.labels.length > 0 &&
                     analysBatteryData.datasets[0].data.length > 0 ? (
                       <>
-                      <View style={{display:'flex', flexDirection: 'column'}}>
-                      <View style={BatteryStyle.filterWrapper}>
-                      <Text>Sort By: </Text>
-                      <View></View>
-                      </View>
-                        <CustomeLineCharts
-                          data={analysBatteryData}
-                          width={350}
-                          height={220}
-                        />
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            width: "100%",
+                          }}
+                        >
+                          <ScrollView
+                            horizontal={true}
+                            style={{ zIndex: 20, width: "100%" }}
+                          >
+                            <View style={BatteryStyle.filterWrapper}>
+                              <Text>Sort By: </Text>
+                              <View
+                                style={{
+                                  zIndex: 50,
+                                  height: sortByopen
+                                    ? mainSortItems.length > 3
+                                      ? mainSortItems.length * 25
+                                      : mainSortItems.length * 55
+                                    : "auto",
+                                }}
+                              >
+                                <DropDownPicker
+                                  open={sortByopen}
+                                  value={selectedMainSortvalue}
+                                  items={mainSortItems}
+                                  setOpen={setSortByOpen}
+                                  setValue={setSelectedMainSortvalue}
+                                  setItems={setMainSortItems}
+                                  onSelectItem={(value) =>
+                                    console.log("value - ", value)
+                                  }
+                                  style={{ width: 200, zIndex: 10, height: 50 }}
+                                  placeholder={selectedMainSortvalue ?? "Month"}
+                                />
+                              </View>
+                            </View>
+
+                            
+                          </ScrollView>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              marginTop: 4,
+                              marginBottom: 4,
+                            }}
+                          >
+                            <View
+                              style={{
+                                padding: 8,
+                                backgroundColor: "#ffffff",
+                                borderRadius: 10,
+                                margin: 8,
+                              }}
+                            >
+                              <Text>{selectedMainSortvalue ? mainSortItems.find(i => i.value === selectedMainSortvalue).label : ''}</Text>
+                            </View>
+                          </View>
+                          <CustomeLineCharts
+                            data={analysBatteryData}
+                            width={350}
+                            height={220}
+                          />
                         </View>
                       </>
                     ) : (
