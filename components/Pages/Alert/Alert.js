@@ -340,48 +340,6 @@ export default function AlertPage() {
               </View>
             </View>
           </View>
-          <View style={styles.messageBox}>
-            <Text style={{ color: "#ffffff", fontWeight: 700 }}>
-              Custom Message
-            </Text>
-            <View style={styles.messageBoxCont}>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <TextInput
-                  style={styles.inputTxt}
-                  placeholder="Ex: Alert Message"
-                  onChangeText={(value) => handleTxtChange(value, "OTHER")}
-                />
-                {displayMsgs[2].error && (
-                  <Text style={styles.formError}>{displayMsgs[2].error}</Text>
-                )}
-              </View>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <MyButton
-                  onPress={() => handleSaveMessage("SAVE_OTHER")}
-                  buttonText={"SAVE"}
-                  buttonType={"SAVE_W_MT_5"}
-                  style={{ marginBottom: 4 }}
-                />
-                <MyButton
-                  onPress={() => handleDisplayMessage("SAVE_OTHER")}
-                  buttonText={"Display Now"}
-                  buttonType={"SAVE_W_MT_5"}
-                />
-              </View>
-            </View>
-          </View>
         </View>
       </ScrollView>
       <Footer txt={"AlertPage"} />
