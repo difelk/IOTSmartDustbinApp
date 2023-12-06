@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 
-const SlideButton = ({setBinNotification}) => {
+const SlideButton = ({selectedValue}) => {
   const [toggleSwitch, setToggleSwitch] = useState(false);
 
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -16,7 +16,7 @@ const SlideButton = ({setBinNotification}) => {
 
   const onPress = () => {
     setToggleSwitch(!toggleSwitch);
-    setBinNotification(toggleSwitch ? false : true);
+    selectedValue(toggleSwitch ? false : true);
   };
 
   const slideButtonStyle = {
@@ -31,9 +31,9 @@ const SlideButton = ({setBinNotification}) => {
   };
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={toggleSwitch? styles.disabled : styles.enabled}>
       <View style={[styles.slideButtonWrapper, toggleSwitch ? styles.toggleLeft : styles.toggleRight]}>
-        <Animated.View style={[styles.sliderSlideButton, slideButtonStyle]} />
+        <Animated.View style={toggleSwitch ?[styles.sliderSlideDisabledButton, slideButtonStyle] : [styles.sliderSlideButton, slideButtonStyle]} />
       </View>
     </TouchableOpacity>
   );
@@ -52,10 +52,24 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     borderRadius: 50,
+    backgroundColor: '#212121',
+    position: 'absolute',
+    top: -1,
+  },
+  sliderSlideDisabledButton: {
+    width: 26,
+    height: 26,
+    borderRadius: 50,
     backgroundColor: '#445EEF',
     position: 'absolute',
     top: -1,
   },
+  toggleLeft: {
+    backgroundColor: '#7A8AE1'
+  },
+  toggleRight: {
+    backgroundColor: 'gray'
+  }
 });
 
 export default SlideButton;
