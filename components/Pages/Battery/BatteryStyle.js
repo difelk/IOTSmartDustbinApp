@@ -260,11 +260,11 @@ export default StyleSheet.create({
   },
 
   filterWrapper: {
-    width: '100%',
+    // width: 360,
     marginBottom: 8,
     display: "flex",
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 });
