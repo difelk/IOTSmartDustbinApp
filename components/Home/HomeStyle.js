@@ -46,6 +46,14 @@ export default StyleSheet.create({
     top: -7,
   },
 
+  batteryPerc:{
+    height:8,
+    backgroundColor: '#ffffff',
+    position: 'absolute',
+    top: 12.6,
+    left: 3,
+  },
+
   greenBox: {
     display: "flex",
     flexDirection: "column",

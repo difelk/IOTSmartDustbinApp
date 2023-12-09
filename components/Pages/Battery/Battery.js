@@ -31,8 +31,7 @@ export default function Battery() {
   const batteryIcon0 = require("../../../assets/empty-battery-status-0.png");
   const noticeIcon = require("../../../assets/noticeIcon.png");
   const [isLoading, setIsLoading] = useState(false);
-  const monthsData = require('../../share/Data/Months.json');
-
+  const monthsData = require("../../share/Data/Months.json");
 
   const [sortByopen, setSortByOpen] = useState(false);
   const [selectedMainSortvalue, setSelectedMainSortvalue] = useState(2);
@@ -57,7 +56,39 @@ export default function Battery() {
   ]);
   const [monthByopen, setMonthByOpen] = useState(false);
   const [selectedMonthValue, setSelectedMonthValue] = useState(0);
-  const [monthsList, setMonthsList] = useState(monthsData.months)
+  const [monthsList, setMonthsList] = useState(monthsData.months);
+
+  // week states
+  const [weekDropdownopen, setWeekDropdownOpen] = useState(false);
+  const [weekDrodpwnSelectedvalue, setWeekDrodpwnSelectedValue] =
+    useState(null);
+  const [weekData, setWeekData] = useState([
+    { label: "English", value: "en" },
+    { label: "Sinhala", value: "sl" },
+  ]);
+
+  // month states
+  const [monthDropdownopen, setMonthDropdownOpen] = useState(false);
+  const [monthDrodpwnSelectedvalue, setMonthDrodpwnSelectedValue] =
+    useState(null);
+  const [monthData, setMonthData] = useState([
+    { label: "English", value: "en" },
+    { label: "Sinhala", value: "sl" },
+  ]);
+
+  // year states
+  const [yearDropdownopen, setYearDropdownOpen] = useState(false);
+  const [yearDrodpwnSelectedvalue, setYearDrodpwnSelectedValue] =
+    useState(null);
+  const [yearData, setYearData] = useState([
+    { label: "English", value: "en" },
+    { label: "Sinhala", value: "sl" },
+  ]);
+
+  const [isanalysisSearchType, setIsanalysisSearchType] = useState({
+    advance: false,
+    default: true,
+  });
 
   const handleAnalysisData = (values) => {};
 
@@ -123,7 +154,6 @@ export default function Battery() {
   const getPercentageWidth = (percentage) => {
     return (percentage / 100) * 300;
   };
-
 
   return (
     <>
@@ -272,118 +302,111 @@ export default function Battery() {
                             style={{ zIndex: 20, width: "100%" }}
                           >
                             <View style={BatteryStyle.filterWrapper}>
-                              <View style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-                                <Text>Sort By: </Text>
-                                <View
-                                  style={{
-                                    zIndex: 50,
-                                    height: sortByopen
-                                      ? mainSortItems.length > 3
-                                        ? mainSortItems.length * 25
-                                        : mainSortItems.length * 55
-                                      : "auto",
+                              <View>
+                                <Text>Week</Text>
+                                <DropDownPicker
+                                  open={weekDropdownopen}
+                                  value={weekDrodpwnSelectedvalue}
+                                  items={weekData}
+                                  setOpen={setWeekDropdownOpen}
+                                  setValue={setWeekDrodpwnSelectedValue}
+                                  setItems={setWeekData}
+                                  onSelectItem={(value) => {
+                                    console.log(
+                                      "value of week dropdown - ",
+                                      value
+                                    );
                                   }}
-                                >
-                                  <DropDownPicker
-                                    open={sortByopen}
-                                    value={selectedMainSortvalue}
-                                    items={mainSortItems}
-                                    setOpen={setSortByOpen}
-                                    setValue={setSelectedMainSortvalue}
-                                    setItems={setMainSortItems}
-                                    onSelectItem={(value) =>
-                                      console.log("value - ", value)
-                                    }
-                                    style={{
-                                      width: 200,
-                                      zIndex: 10,
-                                      height: 50,
-                                    }}
-                                    placeholder={
-                                      selectedMainSortvalue ?? "Month"
-                                    }
-                                  />
-                                </View>
+                                  style={{ width: 80, marginRight: 8 }}
+                                  placeholder={"All"}
+                                />
                               </View>
-
-                              {selectedMainSortvalue === 2 ? <View style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between'}}>
-                                <Text>Select Month: </Text>
-                                <View
-                                  style={{
-                                    zIndex: 50,
-                                    height: monthByopen
-                                      ? monthsList.length > 3
-                                        ? monthsList.length * 25
-                                        : monthsList.length * 55
-                                      : "auto",
+                              <View>
+                                <Text>Month</Text>
+                                <DropDownPicker
+                                  open={monthDropdownopen}
+                                  value={monthDrodpwnSelectedvalue}
+                                  items={monthData}
+                                  setOpen={setMonthDropdownOpen}
+                                  setValue={setMonthDrodpwnSelectedValue}
+                                  setItems={setMonthData}
+                                  onSelectItem={(value) => {
+                                    console.log(
+                                      "value of month dropdown - ",
+                                      value
+                                    );
                                   }}
-                                >
-                                  <DropDownPicker
-                                    open={monthByopen}
-                                    value={selectedMonthValue}
-                                    items={monthsList}
-                                    setOpen={setMonthByOpen}
-                                    setValue={setSelectedMonthValue}
-                                    setItems={setMainSortItems}
-                                    onSelectItem={(value) =>
-                                      console.log("value - ", value)
-                                    }
-                                    style={{
-                                      width: 200,
-                                      zIndex: 10,
-                                      height: 50,
-                                    }}
-                                    placeholder={
-                                      selectedMainSortvalue ?? "Month"
-                                    }
-                                  />
-                                </View>
-                              </View> : ''}
+                                  style={{ width: 80, marginRight: 8 }}
+                                  placeholder={"All"}
+                                />
+                              </View>
+                              <View>
+                                <Text>Year</Text>
+                                <DropDownPicker
+                                  open={yearDropdownopen}
+                                  value={yearDrodpwnSelectedvalue}
+                                  items={yearData}
+                                  setOpen={setYearDropdownOpen}
+                                  setValue={setYearDrodpwnSelectedValue}
+                                  setItems={setYearData}
+                                  onSelectItem={(value) => {
+                                    console.log(
+                                      "value of year dropdown - ",
+                                      value
+                                    );
+                                  }}
+                                  style={{ width: 100 }}
+                                  placeholder={"All"}
+                                  disabled={true}
+                                />
+                              </View>
+                              <View
+                                style={{
+                                  display: "flex",
+                                  marginTop: 20,
+                                  marginLeft: 4,
+                                }}
+                              >
+                                <MyButton
+                                  buttonText={"Filter"}
+                                  buttonType={"PRIMARY"}
+                                  onPress={() => console.log("search")}
+                                />
+                              </View>
                             </View>
+                            {isanalysisSearchType.default ? (
+                              ""
+                            ) : (
+                              <View>
+                                <View></View>
+                              </View>
+                            )}
                           </ScrollView>
+
                           <View
                             style={{
+                              marginVertical: 8,
                               display: "flex",
                               flexDirection: "row",
-                              alignItems: "center",
-                              marginTop: 4,
-                              marginBottom: 4,
                             }}
                           >
-                            <View
-                              style={{
-                                padding: 8,
-                                backgroundColor: "#ffffff",
-                                borderRadius: 10,
-                                margin: 8,
-                              }}
-                            >
-                              <Text>
-                                {selectedMainSortvalue
-                                  ? mainSortItems.find(
-                                      (i) => i.value === selectedMainSortvalue
-                                    ).label
-                                  : ""}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={{
-                                padding: 8,
-                                backgroundColor: "#ffffff",
-                                borderRadius: 10,
-                                margin: 8,
-                              }}
-                            >
-                              <Text>
-                                {selectedMonthValue
-                                  ? monthsList.find(
-                                      (i) => i.value === selectedMonthValue
-                                    ).label
-                                  : "All"}
-                              </Text>
-                            </View>
+                            <MyButton
+                              buttonText={
+                                isanalysisSearchType.default
+                                  ? "More Options"
+                                  : "Default search"
+                              }
+                              buttonType={"LINK"}
+                              onPress={() =>
+                                setIsanalysisSearchType((prev) =>
+                                  prev.advance
+                                    ? { ...prev, advance: false, default: true }
+                                    : { ...prev, advance: true, default: false }
+                                )
+                              }
+                            />
                           </View>
+
                           <CustomeLineCharts
                             data={analysBatteryData}
                             width={350}

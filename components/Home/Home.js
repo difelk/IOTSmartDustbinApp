@@ -18,7 +18,7 @@ import ip from "../../config/ipAddress.json";
 
 export default function Home() {
   const { t } = useTranslation();
-  const batteryIcon = require("../../assets/BatteryIcon.png");
+  const batteryIcon = require("../../assets/empty-battery.png");
   const binIcon = require("../../assets/BinIcon.png");
   const binIconService = require("../../assets/binBlueIcon.png");
   const batteryIconService = require("../../assets/batteryBlueIcon.png");
@@ -39,54 +39,58 @@ export default function Home() {
   const alertIcon = require("../../assets/alert.png");
   const nextIcon = require("../../assets/next.png");
 
+  const [batteryLevel, setBatteryLevel] = useState(80)
+
   const navigation = useNavigation();
   const handleLidControlBtn = async (lidStatus) => {
     try {
       const response = await fetch(`http://${ip.ipAdress}:3000/lid/control`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ lidStatus }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-  
-      console.log('Lid control successful');
+
+      console.log("Lid control successful");
     } catch (error) {
-      console.error('Error controlling lid:', error);
+      console.error("Error controlling lid:", error);
     }
 
-    sendTestMessage()
+    sendTestMessage();
   };
 
   // sending 12c msg sending part is here. let move this letter once we done the uis
 
   const sendTestMessage = async () => {
     try {
-      const response = await fetch(`http://${ip.ipAdress}:3000/messages/control`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: 'This is a test message!',
-          timestamp: Date.now(),
-        }),
-      });
-  
+      const response = await fetch(
+        `http://${ip.ipAdress}:3000/messages/control`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: "This is a test message!",
+            timestamp: Date.now(),
+          }),
+        }
+      );
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-  
-      console.log('Test message sent successfully.');
+
+      console.log("Test message sent successfully.");
     } catch (error) {
-      console.error('Error sending test message:', error);
+      console.error("Error sending test message:", error);
     }
   };
-  
 
   const handleComponentControlBtn = (screenName) => {
     navigation.navigate(screenName);
@@ -94,6 +98,10 @@ export default function Home() {
   const handleNextBtn = (screenName) => {
     navigation.navigate(screenName);
   };
+
+  const getDisplayBatteryLevel = () => {
+ return   20/100 * batteryLevel
+  }
 
   return (
     <>
@@ -122,60 +130,7 @@ export default function Home() {
                     resizeMode="cover"
                     style={HomeStyle.greenBox}
                     borderRadius={10}
-                    
                   >
-                    {/* <View>
-                      <Text style={HomeStyle.subTitleTxt}>
-                        {t("CURRENT_STATUS")}
-                      </Text>
-                      <Text style={HomeStyle.whiteTxt}>{t("LID_CLOSE")}</Text>
-                      <Text style={HomeStyle.subTitleTxt}>
-                        {t("BATTERY_STATUS")}
-                      </Text>
-                      <View style={global.display_Flx_dir_row_align_center}>
-                        <Image
-                          source={batteryIcon}
-                          style={HomeStyle.statusIcons}
-                        />
-                        <Text style={HomeStyle.whiteTxt}>67%</Text>
-                      </View>
-
-                      <Text style={HomeStyle.subTitleTxt}>
-                        {t("BIN_STATUS")}
-                      </Text>
-                      <View style={global.display_Flx_dir_row_align_center}>
-                        <Image source={binIcon} style={HomeStyle.statusIcons} />
-                        <Text style={HomeStyle.whiteTxt}>20%</Text>
-                      </View>
-                    </View>
-                    <View style={HomeStyle.lidBtnWrapper}>
-                      <View style={HomeStyle.lidBtnClose}>
-                        <IconButton
-                          onPress={handleLidControlBtn}
-                          buttonText={t("CLOSE_LID")}
-                          buttonIcon={binCloseIcon}
-                          bgColor={"#3cb89b"}
-                          txtColor={colors.white}
-                          width={55}
-                          height={55}
-                          btnSize={"LG"}
-                          btnType={"LID"}
-                        />
-                      </View>
-                      <View style={HomeStyle.lidBtnOpen}>
-                        <IconButton
-                          onPress={handleLidControlBtn}
-                          buttonText={t("OPEN_LID")}
-                          buttonIcon={binOpenIcon}
-                          bgColor={"#3cb89b"}
-                          txtColor={colors.white}
-                          width={55}
-                          height={55}
-                          btnSize={"LG"}
-                          btnType={"LID"}
-                        />
-                      </View>
-                    </View> */}
                     <View
                       style={{
                         display: "flex",
@@ -184,7 +139,6 @@ export default function Home() {
                         justifyContent: "space-between",
                         width: "100%",
                         marginBottom: 10,
-                        
                       }}
                     >
                       <View>
@@ -202,9 +156,19 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
-                            
+                            position: "relative",
                           }}
                         >
+                          <View
+                            style={{
+                              width:getDisplayBatteryLevel(),
+                              height: 9,
+                              backgroundColor: "#ffffff",
+                              position: "absolute",
+                              top: 12.5,
+                              left: 3,
+                            }}
+                          ></View>
                           <Image
                             source={batteryIcon}
                             style={HomeStyle.statusIcons}
@@ -224,7 +188,6 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
-                            
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
@@ -258,7 +221,6 @@ export default function Home() {
                               fontSize: 25,
                               color: "#ffffff",
                               fontWeight: "700",
-                              
                             }}
                           >
                             80%
@@ -269,7 +231,6 @@ export default function Home() {
                             display: "flex",
                             flexDirection: "row",
                             alignItems: "center",
-                            
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
@@ -284,7 +245,6 @@ export default function Home() {
                         alignItems: "center",
                         justifyContent: "center",
                         width: "100%",
-                        
                       }}
                     >
                       <View
@@ -294,7 +254,6 @@ export default function Home() {
                           justifyContent: "center",
                           textAlign: "center",
                           width: "100%",
-                          
                         }}
                       >
                         <Text
@@ -319,7 +278,7 @@ export default function Home() {
                         }}
                       >
                         <IconButton
-                          onPress={() => handleLidControlBtn('LID_CLOSE')}
+                          onPress={() => handleLidControlBtn("LID_CLOSE")}
                           buttonText={t("CLOSE_LID")}
                           buttonIcon={binCloseIcon}
                           bgColor={"#1c7850"}
@@ -330,7 +289,7 @@ export default function Home() {
                           btnType={"LIDCONTROL"}
                         />
                         <IconButton
-                          onPress={() => handleLidControlBtn('LID_OPEN')}
+                          onPress={() => handleLidControlBtn("LID_OPEN")}
                           buttonText={t("OPEN_LID")}
                           buttonIcon={binOpenIcon}
                           bgColor={"#1c7850"}
@@ -346,13 +305,21 @@ export default function Home() {
                 </View>
               </View>
               <View style={HomeStyle.middleSection}>
-                <ImageBackground  source={crdbkgrnd3} style={HomeStyle.mainBox} borderRadius={15}>
+                <ImageBackground
+                  source={crdbkgrnd3}
+                  style={HomeStyle.mainBox}
+                  borderRadius={15}
+                >
                   <View style={HomeStyle.iconView}>
                     <Image source={display} style={HomeStyle.icon} />
                   </View>
                   <View style={HomeStyle.textView}>
-                    <Text style={HomeStyle.headerTxt}>Change Display Messages</Text>
-                    <Text style={HomeStyle.headerTxtSubText}>Alerts, Notifications and Warnings messages</Text>
+                    <Text style={HomeStyle.headerTxt}>
+                      Change Display Messages
+                    </Text>
+                    <Text style={HomeStyle.headerTxtSubText}>
+                      Alerts, Notifications and Warnings messages
+                    </Text>
                   </View>
                   <View style={HomeStyle.nextIcon}>
                     <TouchableOpacity>
