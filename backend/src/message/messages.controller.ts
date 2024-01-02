@@ -1,5 +1,5 @@
 // messages.controller.ts
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Put } from '@nestjs/common';
 import { MessageService } from './messages.service';
 
 @Controller('messages')
@@ -17,5 +17,16 @@ export class MessagesController {
       timestamp,
     );
     return `Message saved: ${savedMessage}`;
+  }
+
+  @Put('update-display')
+  async updateDisplayMessage(
+    @Body() updateData: { key: string; value: string },
+  ): Promise<string> {
+    const { key, value } = updateData;
+
+    const result = await this.messagesService.updateDisplayMessage(key, value);
+
+    return `Message updated: ${result}`;
   }
 }

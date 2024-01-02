@@ -13,18 +13,13 @@ export class BatteryService {
   async getBatteryData(): Promise<BatteryData[]> {
     try {
       const snapshot = await this.database.ref('/batteryData').once('value');
-      const batteryData: BatteryData[] = [];
-
+      
+      const allBatteryData = [];
       snapshot.forEach((childSnapshot) => {
         const data = childSnapshot.val();
-        batteryData.push({
-          date: data.date,
-          time: data.time,
-          percentage: data.percentage,
-        });
+        allBatteryData.push(data);
       });
-
-      return batteryData;
+      return allBatteryData;
     } catch (error) {
       console.error('Error fetching battery data:', error);
       throw error;

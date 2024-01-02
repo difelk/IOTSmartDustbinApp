@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import ip from "../../../config/ipAddress.json";
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
 import { colors } from "../../../styles/constants";
@@ -8,69 +16,100 @@ import Header from "../../Header/Header";
 export default function Notification() {
   const notificationIcon = require("../../../assets/MailIcon.png");
   const deleteBinIcon = require("../../../assets/deleteIcon.png");
-  const handleDeleteBtn = (value) => {};
-
-  const data = [
-    {
-      ID: 1,
-      Title: "Battery Low",
-      DateTime: "2023/10/29 18:30",
-      Desc: "Battery Percentage: 20% Only 6 hours of battery power remaining. Please recharge for uninterrupted operation.",
-    },
-    {
-      ID: 2,
-      Title: "Bin Empty",
-      DateTime: "2023/10/30 15:30",
-      Desc: "Battery Percentage: 20% Only 6 hours of battery power remaining. Please recharge for uninterrupted operation.",
-    },
-    {
-      ID: 3,
-      Title: "Bin Full",
-      DateTime: "2023/10/32 10:30",
-      Desc: "Battery Percentage: 20% Only 6 hours of battery power remaining. Please recharge for uninterrupted operation.",
-    },
-  ];
 
   const [selectedId, setSelectedId] = useState();
-  const handlePress = (id)=>{
+  const [notificationsData, setNotificationsData] = useState([]);
+
+  const handlePress = async (id) => {
     setSelectedId(id);
-  }
+  
+    await fetch(`http://${ip.ipAdress}:3000/notifications/view/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  
+    getNotificationData();
+  };
+
+  const handleDeleteBtn = async (id) => {
+    console.log("handleDeleteBtn id - ", id);
+    await fetch(`http://${ip.ipAdress}:3000/notifications/delete/${id}`, {
+      method: "DELETE",
+    });
+    getNotificationData();
+  };
+
+  const getNotificationData = async () => {
+    try {
+      const response = await fetch(`http://${ip.ipAdress}:3000/notifications`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const notifications = await response.json();
+      setNotificationsData(notifications);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    getNotificationData();
+  }, []);
+
   return (
     <>
-     <Header />
+      <Header />
       <View style={styles.center}>
         <Text style={styles.topicTxt}>Notification</Text>
 
-        {data.map((item) => (
-          <TouchableOpacity onPress={()=>handlePress(item.ID)} key={item.ID}>
-          <View style={styles.parentBox}>
-            <View style={styles.notificationBox}>
-              <View style={styles.iconBox}>
-                <Image source={notificationIcon} style={styles.icon} />
+        {Object.keys(notificationsData).map((notificationId) => {
+          const item = notificationsData[notificationId];
+          return (
+            <TouchableOpacity
+              onPress={() => handlePress(notificationId)}
+              key={notificationId}
+            >
+              <View style={styles.parentBox}>
+                <View style={item.view ?  styles.notificationBox : [styles.notificationBox, styles.unreadNotificationBox]}>
+                  <View style={styles.iconBox}>
+                    <Image source={notificationIcon} style={styles.icon} />
+                  </View>
+                  <View style={styles.textBox}>
+                    <Text style={styles.headerTxt}>
+                      {item.Notification_Title}
+                    </Text>
+                    <Text style={styles.subTxt}>{item.current_Date_Time}</Text>
+                  </View>
+                </View>
+                <View
+                  style={
+                    selectedId === notificationId
+                      ? styles.collapseBox
+                      : [styles.collapseBox, styles.displayHide]
+                  }
+                >
+                  <Text style={styles.notifyDetails}>
+                    {item.Notification_Description}
+                  </Text>
+                  <IconButton
+                    key={1}
+                    onPress={() => handleDeleteBtn(notificationId)}
+                    buttonText={""}
+                    buttonIcon={deleteBinIcon}
+                    bgColor={"#FFFFFF"}
+                    txtColor={"#FFFFFF"}
+                    width={25}
+                    height={25}
+                    btnSize={"SM"}
+                    btnType={""}
+                  />
+                </View>
               </View>
-              <View style={styles.textBox}>
-                <Text style={styles.headerTxt}>{item.Title}</Text>
-                <Text style={styles.subTxt}>{item.DateTime}</Text>
-              </View>
-            </View>
-            <View style={selectedId == item.ID ? styles.collapseBox : [styles.collapseBox, styles.displayHide]}>
-              <Text style={styles.notifyDetails}>{item.Desc}</Text>
-              <IconButton
-                key={1}
-                onPress={() => handleDeleteBtn(1)}
-                buttonText={""}
-                buttonIcon={deleteBinIcon}
-                bgColor={"#FFFFFF"}
-                txtColor={"#FFFFFF"}
-                width={25}
-                height={25}
-                btnSize={"SM"}
-                btnType={""}
-              />
-            </View>
-          </View>
-          </TouchableOpacity>
-        ))}
+            </TouchableOpacity>
+          );
+        })}
       </View>
 
       <Footer txt={"Notification"} />
@@ -112,6 +151,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
     width: 350,
+  },
+  unreadNotificationBox: {
+    backgroundColor: '#3c28a01a'
   },
   iconBox: {
     marginRight: 20,

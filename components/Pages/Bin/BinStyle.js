@@ -91,8 +91,10 @@ export default StyleSheet.create({
 
   refreshBtn: {
     display: "flex",
+    flexDirection: 'row',
     width: "100%",
-    alignItems: "flex-end",
+    alignItems: "center",
+    justifyContent: 'space-between',
     marginRight: 18,
   },
 
@@ -171,7 +173,7 @@ export default StyleSheet.create({
     position: "relative",
   },
   statusIcon: {
-    transform: [{ rotate: "-90deg" }],
+    transform: [{ rotate: "-360deg" }],
   },
   noticeIcon: {
     marginLeft: 8,
@@ -213,8 +215,8 @@ export default StyleSheet.create({
     fontWeight: "600",
   },
   fullBin: {
-    width: 10,
-    height: 24.8,
+    width: 12,
+    height: 20,
     backgroundColor: "#78E587",
     position: "absolute",
     bottom: 4,
@@ -222,7 +224,7 @@ export default StyleSheet.create({
   },
   normalBin: {
     width: 10,
-    height: 20,
+    height: 18,
     backgroundColor: "#3FC3F4",
     position: "absolute",
     bottom: 4,
@@ -257,4 +259,22 @@ export default StyleSheet.create({
     borderRadius: 50,
     maxWidth: 312,
   },
+  
+  filterWrapper: {
+    // width: 360,
+    marginBottom: 8,
+    display: "flex",
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  containerDate: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+   marginBottom: 12,
+   backgroundColor: '#fff0e7',
+   padding: 8,
+  }
 });

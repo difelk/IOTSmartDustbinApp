@@ -7,6 +7,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useTranslation } from "react-i18next";
 import SlideButton from "../../share/Button/SlideButton";
 import Header from "../../Header/Header";
+import MyButton from "../../share/Button/Button";
+import ip from "../../../config/ipAddress.json";
 export default function Settings() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -16,16 +18,15 @@ export default function Settings() {
     { label: "Sinhala", value: "sl" },
   ]);
 
-const [settingsData, setSettingsData] = useState({
-  language: '',
-  isBinNotificationOn: true,
-  binNotificationGetTime: 4,
-  isBatteryNotificationOn: true,
-  batteryNotificationGetTime: 4,
-  isLidNotificationOn: true,
-  lidNotificationGetTime: 4,
-})
-
+  const [settingsData, setSettingsData] = useState({
+    language: "",
+    isBinNotificationOn: true,
+    binNotificationGetTime: 4,
+    isBatteryNotificationOn: true,
+    batteryNotificationGetTime: 4,
+    isLidNotificationOn: true,
+    lidNotificationGetTime: 4,
+  });
 
   useEffect(() => {
     const getStoredLanguage = async () => {
@@ -48,41 +49,80 @@ const [settingsData, setSettingsData] = useState({
     AsyncStorage.setItem("selectedLanguage", lang.value);
   };
 
-  // const handlDisplayName = (value) => {
-  //   // console.log("display name is - ", value);
-  // };
+ 
 
   const [binRecordingOpen, setBinRecordingOpen] = useState(false);
   const [binSelectedItem, setBinSelectedItem] = useState("4 Hour");
 
   const handleBinRecordingTime = (value) => {
     setBinSelectedItem(value);
-
   };
 
   const [batteryRecordingOpen, setBatteryRecordingOpen] = useState(false);
   const [batterySelectedItem, setBatterySelectedItem] = useState("4 Hour");
 
-
   const handleBatteryRecordingTime = (value) => {
     setBatterySelectedItem(value);
-
   };
-
 
   const [lidRecordingOpen, setLidyRecordingOpen] = useState(false);
   const [lidSelectedItem, setLidSelectedItem] = useState("4 Hour");
 
-
   const handleLidRecordingTime = (value) => {
     setLidSelectedItem(value);
-
   };
-
 
   const [binNotification, setBinNotification] = useState(false);
   const [batteryNotification, setBatteryNotification] = useState(false);
   const [lidNotification, setLidNotification] = useState(false);
+
+  const sendSettingsData = () => {
+    const config = {
+      binNotificationGetTime: parseInt(settingsData.binNotificationGetTime.value),
+      batteryNotificationGetTime: parseInt(settingsData.batteryNotificationGetTime.value),
+    };
+  
+
+  
+    fetch(`http://${ip.ipAdress}:3000/settings/update-config`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(config),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+  
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+
+          return { success: true };
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.success) {
+          console.log("Settings updated successfully");
+        } else {
+          console.error("Unexpected response format:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating settings:", error);
+      });
+  };
+  
+  
+  
+  
+  
+  
+  
 
   return (
     <>
@@ -99,9 +139,8 @@ const [settingsData, setSettingsData] = useState({
             setValue={setValue}
             setItems={setItems}
             onSelectItem={(value) => {
-              handleLangChng(value)
-              setSettingsData({...settingsData, language: value.value})
-            
+              handleLangChng(value);
+              setSettingsData({ ...settingsData, language: value.value });
             }}
             style={styles.dropdown}
             placeholder={
@@ -121,16 +160,16 @@ const [settingsData, setSettingsData] = useState({
           />
         </View> */}
 
-        <View style={{marginVertical: 12}}>
-          <Text style={{fontWeight: 600}}>Notifications Settings</Text>
+        <View style={{ marginVertical: 12 }}>
+          <Text style={{ fontWeight: 600 }}>Notifications Settings</Text>
         </View>
 
         <View style={styles.slideLbWrapper}>
           <Text style={styles.slidetxtSml}>Bin Notifications</Text>
           <SlideButton
             selectedValue={(value) => {
-              setBinNotification(value)
-              setSettingsData({...settingsData, isBinNotificationOn: value})
+              setBinNotification(value);
+              setSettingsData({ ...settingsData, isBinNotificationOn: value });
             }}
           />
         </View>
@@ -141,14 +180,14 @@ const [settingsData, setSettingsData] = useState({
               open={binRecordingOpen}
               value={binSelectedItem}
               items={[
-                { label: "1 Hour", value: "1" },
-                { label: "2 Hour", value: "2" },
-                { label: "4 Hour", value: "4" },
-                { label: "8 Hour", value: "8" },
-                { label: "12 Hour", value: "12" },
-                { label: "24 Hour", value: "24" },
-                { label: "48 Hour", value: "48" },
-                { label: "60 Hour", value: "60" },
+                { label: "1 Hour", value: "3600000" },
+                { label: "2 Hours", value: "7200000" },
+                { label: "4 Hours", value: "14400000" },
+                { label: "8 Hours", value: "28800000" },
+                { label: "12 Hours", value: "43200000" },
+                { label: "24 Hours", value: "86400000" },
+                { label: "48 Hours", value: "172800000" },
+                { label: "60 Hours", value: "216000000" },
               ]}
               setValue={setBinSelectedItem}
               setOpen={setBinRecordingOpen}
@@ -156,9 +195,13 @@ const [settingsData, setSettingsData] = useState({
               placeholder={
                 binSelectedItem ? binSelectedItem : "Select Recording Time"
               }
-              onSelectItem={(value) =>{
-                setSettingsData({...settingsData, binNotificationGetTime: value})
-                handleBinRecordingTime(value)}}
+              onSelectItem={(value) => {
+                setSettingsData({
+                  ...settingsData,
+                  binNotificationGetTime: value,
+                });
+                handleBinRecordingTime(value);
+              }}
             />
           </View>
         ) : (
@@ -168,8 +211,11 @@ const [settingsData, setSettingsData] = useState({
           <Text style={styles.slidetxtSml}>Battery Notifications</Text>
           <SlideButton
             selectedValue={(value) => {
-              setSettingsData({...settingsData, isBatteryNotificationOn: value})
-              setBatteryNotification(value)
+              setSettingsData({
+                ...settingsData,
+                isBatteryNotificationOn: value,
+              });
+              setBatteryNotification(value);
             }}
           />
         </View>
@@ -180,14 +226,14 @@ const [settingsData, setSettingsData] = useState({
               open={batteryRecordingOpen}
               value={batterySelectedItem}
               items={[
-                { label: "1 Hour", value: "1" },
-                { label: "2 Hour", value: "2" },
-                { label: "4 Hour", value: "4" },
-                { label: "8 Hour", value: "8" },
-                { label: "12 Hour", value: "12" },
-                { label: "24 Hour", value: "24" },
-                { label: "48 Hour", value: "48" },
-                { label: "60 Hour", value: "60" },
+                { label: "1 Hour", value: "3600000" },
+                { label: "2 Hours", value: "7200000" },
+                { label: "4 Hours", value: "14400000" },
+                { label: "8 Hours", value: "28800000" },
+                { label: "12 Hours", value: "43200000" },
+                { label: "24 Hours", value: "86400000" },
+                { label: "48 Hours", value: "172800000" },
+                { label: "60 Hours", value: "216000000" },
               ]}
               setValue={setBatterySelectedItem}
               setOpen={setBatteryRecordingOpen}
@@ -198,58 +244,24 @@ const [settingsData, setSettingsData] = useState({
                   : "Select Recording Time"
               }
               onSelectItem={(value) => {
-                setSettingsData({...settingsData, batteryNotificationGetTime: value})
-                handleBatteryRecordingTime(value)
-              
+                setSettingsData({
+                  ...settingsData,
+                  batteryNotificationGetTime: value,
+                });
+                handleBatteryRecordingTime(value);
               }}
             />
           </View>
         ) : (
           ""
         )}
-                <View style={styles.slideLbWrapper}>
-          <Text style={styles.slidetxtSml}>Lid Notifications</Text>
-          <SlideButton
-            selectedValue={(value) => {
-              setSettingsData({...settingsData, isLidNotificationOn: value})
-              setLidNotification(value)
-            }}
+        <View style={{ marginTop: 50 }}>
+          <MyButton
+            onPress={() => sendSettingsData()}
+            buttonText={"Save Changes"}
+            buttonType={"PRIMARY"}
           />
         </View>
-        {settingsData.isLidNotificationOn ? (
-          <View style={styles.langDropWrapper}>
-            <Text style={styles.txtSml}>Lid Data Receiving Time</Text>
-            <DropDownPicker
-              open={lidRecordingOpen}
-              value={binSelectedItem}
-              items={[
-                { label: "1 Hour", value: "1" },
-                { label: "2 Hour", value: "2" },
-                { label: "4 Hour", value: "4" },
-                { label: "8 Hour", value: "8" },
-                { label: "12 Hour", value: "12" },
-                { label: "24 Hour", value: "24" },
-                { label: "48 Hour", value: "48" },
-                { label: "60 Hour", value: "60" },
-              ]}
-              setValue={setLidSelectedItem}
-              setOpen={setLidyRecordingOpen}
-              style={[styles.dropdown, styles.dropdownOverlap]}
-              placeholder={
-                batterySelectedItem
-                  ? batterySelectedItem
-                  : "Select Recording Time"
-              }
-              onSelectItem={(value) => {
-                setSettingsData({...settingsData, binNotificationGetTime: value})
-                handleLidRecordingTime(value)
-              
-              }}
-            />
-          </View>
-        ) : (
-          ""
-        )}
       </View>
       <Footer txt={"Settings"} />
     </>

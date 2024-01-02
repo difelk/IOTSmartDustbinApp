@@ -10,8 +10,6 @@ export class BinController {
   async getBinData(): Promise<BinData[]> {
     try {
       const binData: BinData[] = await this.binService.getBinData();
-      console.log('controller bin - ', binData);
-
       return binData;
     } catch (error) {
       console.error('Error in bin controller:', error);

@@ -9,7 +9,7 @@ async function bootstrap() {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL:
-      'https://nest-native-iot-smart-dustbin-default-rtdb.firebaseio.com/',
+    "https://ecobinnexus-default-rtdb.asia-southeast1.firebasedatabase.app",
   });
 
   const app = await NestFactory.create(AppModule);

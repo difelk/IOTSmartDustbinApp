@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Platform, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Platform,
+  ScrollView,
+} from "react-native";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 import MyButton from "../../share/Button/Button";
+import ip from "../../../config/ipAddress.json";
 
 export default function AlertPage() {
   const [displayMsgs, setDisplayMsg] = useState([
@@ -30,16 +38,53 @@ export default function AlertPage() {
     }
   };
 
+  const sendDisplayData = async (key, value) => {
+    const apiUrl = `http://${ip.ipAdress}:3000/messages/update-display`;
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ key, value }),
+      });
+
+      if (!response.ok) {
+        console.error("Error:", response.statusText);
+      } else {
+        try {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.includes("application/json")) {
+            const result = await response.json();
+            console.log("Result:", result);
+          } else {
+            const resultText = await response.text();
+            console.log("Non-JSON Result:", resultText);
+          }
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   const handleSaveMessage = (type) => {
     const lengthError = "Error: Message cannot be more than 16 words";
-
     switch (type) {
       case "SAVE_BATTERY":
-        if (displayMsgs[0].batteryMsg && displayMsgs[0].batteryMsg.length > 16) {
+        if (
+          displayMsgs[0].batteryMsg &&
+          displayMsgs[0].batteryMsg.length > 16
+        ) {
           setDisplayMsg((prevMsgs) => [
             { ...prevMsgs[0], error: lengthError },
             ...prevMsgs.slice(1),
           ]);
+        } else {
+          sendDisplayData("BatteryLow", displayMsgs[0].batteryMsg);
         }
         break;
       case "SAVE_BIN":
@@ -49,6 +94,8 @@ export default function AlertPage() {
             { ...prevMsgs[1], error: lengthError },
             ...prevMsgs.slice(2),
           ]);
+        } else {
+          sendDisplayData("BinEmptyMsg", displayMsgs[1].binMsg);
         }
         break;
       case "SAVE_OTHER":
@@ -57,23 +104,37 @@ export default function AlertPage() {
             ...prevMsgs.slice(0, 2),
             { ...prevMsgs[2], error: lengthError },
           ]);
+        } else {
+          sendDisplayData("customMsg", displayMsgs[2].otherMsg);
         }
         break;
-        case "SAVE_BATTERY_DEAD":
-          if (displayMsgs[3].batteryDeadMsg && displayMsgs[3].batteryDeadMsg.length > 16) {
-            setDisplayMsg((prevMsgs) => [
-              ...prevMsgs.slice(0, 3),
-              { ...prevMsgs[3], error: lengthError },
-              ...prevMsgs.slice(4),
-            ]);
-          }
-          break;
+      case "SAVE_BATTERY_DEAD":
+        if (
+          displayMsgs[3].batteryDeadMsg &&
+          (displayMsgs[3].batteryDeadMsg.length > 16 ||
+            !displayMsgs[3].batteryDeadMsg.length)
+        ) {
+          setDisplayMsg((prevMsgs) => [
+            ...prevMsgs.slice(0, 3),
+            { ...prevMsgs[3], error: lengthError },
+            ...prevMsgs.slice(4),
+          ]);
+        } else {
+          sendDisplayData("BatteryDeadMsg", displayMsgs[3].batteryDeadMsg);
+        }
+        break;
       case "SAVE_BIN_ALMOST":
-        if (displayMsgs[4].binAlmostMsg && displayMsgs[4].binAlmostMsg.length > 16) {
+        console.log("displayMsgs[4]");
+        if (
+          displayMsgs[4].binAlmostMsg &&
+          displayMsgs[4].binAlmostMsg.length < 16 &&
+          displayMsgs[4].binAlmostMsg.length > 0
+        ) {
           setDisplayMsg((prevMsgs) => [
             ...prevMsgs.slice(0, 4),
             { ...prevMsgs[4], error: lengthError },
           ]);
+          sendDisplayData("BinFullMsg", displayMsgs[4].binAlmostMsg);
         }
         break;
       default:
@@ -96,10 +157,18 @@ export default function AlertPage() {
           ...prevMsgs.slice(2),
         ]);
         break;
+      case "SAVE_BIN":
+        setDisplayMsg((prevMsgs) => [
+          ...prevMsgs.slice(0, 1),
+          { ...prevMsgs[1], binMsg: value, error: "" },
+          ...prevMsgs.slice(2),
+        ]);
+        break;
       case "OTHER":
         setDisplayMsg((prevMsgs) => [
           ...prevMsgs.slice(0, 2),
           { ...prevMsgs[2], otherMsg: value, error: "" },
+          ...prevMsgs.slice(3),
         ]);
         break;
       case "BATTERY_DEAD":
@@ -135,7 +204,6 @@ export default function AlertPage() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                 
                 }}
               >
                 <TextInput
@@ -185,7 +253,9 @@ export default function AlertPage() {
                 <TextInput
                   style={styles.inputTxt}
                   placeholder="Ex: Battery Low"
-                  onChangeText={(value) => handleTxtChange(value, "BATTERY")}
+                  onChangeText={(value) => {
+                    handleTxtChange(value, "BATTERY");
+                  }}
                 />
                 {displayMsgs[0].error && (
                   <Text style={styles.formError}>{displayMsgs[0].error}</Text>
@@ -271,7 +341,7 @@ export default function AlertPage() {
                 <TextInput
                   style={styles.inputTxt}
                   placeholder="Ex: Bin is Full"
-                  onChangeText={(value) => handleTxtChange(value, "BIN")}
+                  onChangeText={(value) => handleTxtChange(value, "SAVE_BIN")}
                 />
                 {displayMsgs[1].error && (
                   <Text style={styles.formError}>{displayMsgs[1].error}</Text>

@@ -11,7 +11,6 @@ export class BatteryController {
     try {
       const batteryData: BatteryData[] =
         await this.batteryService.getBatteryData();
-      console.log('controller bat - ', batteryData);
 
       return batteryData;
     } catch (error) {

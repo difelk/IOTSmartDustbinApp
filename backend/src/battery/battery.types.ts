@@ -1,5 +1,5 @@
 export interface BatteryData {
-  date: string;
-  time: string;
-  percentage: number;
+  Battery_Percentage: string;
+  Battery_Status: string;
+  current_Date_Time: number;
 }
