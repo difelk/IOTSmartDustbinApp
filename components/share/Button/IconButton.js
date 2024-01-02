@@ -46,6 +46,9 @@ const IconButton = ({
     case "NOTIFICATION":
       buttonClass = ButtonStyle.notifyBtn;
       break;
+    case "NOTIFICATIONUNREAD":
+      buttonClass = ButtonStyle.notifyUnreadBtn;
+      break;
     case "LOGOUT":
       buttonClass = ButtonStyle.logoutBtn;
       break;
@@ -54,9 +57,9 @@ const IconButton = ({
       buttonClass = ButtonStyle.footerIconBtn;
       break;
 
-      case "LIDCONTROL":
-        buttonClass = ButtonStyle.widthBtnIconLeft;
-        break;
+    case "LIDCONTROL":
+      buttonClass = ButtonStyle.widthBtnIconLeft;
+      break;
     case "":
       buttonClass = ButtonStyle.normalIconBtn;
       break;
@@ -65,11 +68,19 @@ const IconButton = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={buttonClass}>
+        {btnType === "NOTIFICATIONUNREAD" ? <View style={{width: 12, height: 12, backgroundColor: 'red', borderRadius: 50, position: 'absolute', top: 5, right: 5}}></View> : ''}
         <Image source={buttonIcon} style={{ width: width, height: height }} />
         {buttonText !== "" ? (
           <Text
             style={
-              btnType === "LID" ||  btnType === "LIDCONTROL"  ? { color: '#000000', marginTop: 0, marginLeft: 4, fontWeight: '700' } : { color: '#191952',fontWeight: '700', marginTop: 16 }
+              btnType === "LID" || btnType === "LIDCONTROL"
+                ? {
+                    color: "#000000",
+                    marginTop: 0,
+                    marginLeft: 4,
+                    fontWeight: "700",
+                  }
+                : { color: "#191952", fontWeight: "700", marginTop: 16 }
             }
           >
             {buttonText}

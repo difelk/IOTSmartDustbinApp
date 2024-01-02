@@ -92,8 +92,10 @@ export default StyleSheet.create({
 
   refreshBtn: {
     display: "flex",
+    flexDirection: 'row',
     width: "100%",
-    alignItems: "flex-end",
+    alignItems: "center",
+    justifyContent: 'space-between',
     marginRight: 18,
   },
 
@@ -267,4 +269,13 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  containerDate: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+   marginBottom: 12,
+   backgroundColor: '#fff0e7',
+   padding: 8,
+  }
 });

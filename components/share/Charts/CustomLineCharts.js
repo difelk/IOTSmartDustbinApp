@@ -5,6 +5,7 @@ import { LineChart } from 'react-native-chart-kit';
 
 export default function CustomeLineCharts({data, width, height, yLabel, borderRadius, backgroundGFrom, backgroundGTo}){
 
+  
     return (
       <View style={styles.container}>
         <LineChart

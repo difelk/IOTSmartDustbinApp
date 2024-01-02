@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
+// import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 import HomeStyle from "./HomeStyle";
 import global from "../../styles/global";
@@ -39,7 +40,115 @@ export default function Home() {
   const alertIcon = require("../../assets/alert.png");
   const nextIcon = require("../../assets/next.png");
 
-  const [batteryLevel, setBatteryLevel] = useState(80)
+  const [batteryLevel, setBatteryLevel] = useState(0)
+  const [batteryData, setBatteryData] = useState([])
+  const [binLevel, setBinLevel] = useState(0)
+  const [binData, setBinData] = useState([])
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
+
+
+
+  const getBatteryData = () => {
+    // setIsLoading(true);
+    fetch(`http://${ip.ipAdress}:3000/battery`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const dataArray = Array.isArray(data) ? data : [data];
+        setBatteryData(dataArray)
+        if(dataArray.length){
+          setBatteryLevel(parseInt(dataArray[dataArray.length - 1].Battery_Percentage));
+        }
+        
+        // handleAnalysisData(dataArray);
+        // setError(null);
+        // console.log("Updated state:", dataArray);
+        // setIsLoading(false);
+      })
+      .catch((error) => {
+        // setError(error);
+        console.error("Error:", error);
+        // setIsLoading(false);
+      });
+  }
+
+
+  const getNotificationData = async () => {
+    try {
+      const response = await fetch(`http://${ip.ipAdress}:3000/notifications`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const notifications = await response.json();
+  
+      const unreadNotifications = Object.values(notifications).filter(
+        (item) => !item.view
+      );
+
+      const unreadCount = unreadNotifications.length;
+
+      setUnreadNotificationCount(unreadCount);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+
+  
+  useEffect(() => {
+    getNotificationData();
+  }, []);
+  
+
+
+
+  const getBinData = () => {
+    // setIsLoading(true);
+    fetch(`http://${ip.ipAdress}:3000/bin`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const dataArray = Array.isArray(data) ? data : [data];
+        setBinData(dataArray)
+        if(dataArray.length){
+          setBinLevel(parseInt(dataArray[dataArray.length - 1].Battery_Percentage));
+        }
+        // setBinDetails(dataArray);
+        // setError(null);
+        // console.log("Updated state:", dataArray);
+        // setIsLoading(false);
+      })
+      .catch((error) => {
+        // setError(error);
+        console.error("Error:", error);
+        // setIsLoading(false);
+      });
+  };
+
+    useEffect(() => {
+      getBatteryData();
+      getBinData();
+    }, []); 
+
+
+    // useFocusEffect(
+    //   React.useCallback(() => {
+    //   getBatteryData();
+    //   getBinData();
+    //   }, [])
+    // );
+
+
+
+    
 
   const navigation = useNavigation();
   const handleLidControlBtn = async (lidStatus) => {
@@ -55,41 +164,10 @@ export default function Home() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-
-      console.log("Lid control successful");
     } catch (error) {
       console.error("Error controlling lid:", error);
     }
 
-    sendTestMessage();
-  };
-
-  // sending 12c msg sending part is here. let move this letter once we done the uis
-
-  const sendTestMessage = async () => {
-    try {
-      const response = await fetch(
-        `http://${ip.ipAdress}:3000/messages/control`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: "This is a test message!",
-            timestamp: Date.now(),
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      console.log("Test message sent successfully.");
-    } catch (error) {
-      console.error("Error sending test message:", error);
-    }
   };
 
   const handleComponentControlBtn = (screenName) => {
@@ -180,7 +258,7 @@ export default function Home() {
                               fontWeight: "700",
                             }}
                           >
-                            80%
+                            {batteryLevel}%
                           </Text>
                         </View>
                         <View
@@ -191,7 +269,7 @@ export default function Home() {
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
-                            2023-11-01 18:30
+                           {batteryData.length ?  batteryData[batteryData.length-1]?.current_Date_Time : ''}
                           </Text>
                         </View>
                       </View>
@@ -223,7 +301,7 @@ export default function Home() {
                               fontWeight: "700",
                             }}
                           >
-                            80%
+                             {binData.length ?  binData[binData.length-1]?.Dustbin_Percentage: ''}
                           </Text>
                         </View>
                         <View
@@ -234,7 +312,7 @@ export default function Home() {
                           }}
                         >
                           <Text style={{ fontSize: 12, color: "#9ab2ff" }}>
-                            2023-11-01 18:30
+                          {binData.length ?  binData[binData.length-1]?.current_Date_Time : ''}
                           </Text>
                         </View>
                       </View>
@@ -410,6 +488,7 @@ export default function Home() {
                       btnSize={"LG"}
                       btnType={"ABOUT"}
                     />
+                    
                     <IconButton
                       onPress={() => handleComponentControlBtn("Notification")}
                       buttonText={t("NOTIFICATION")}
@@ -419,7 +498,7 @@ export default function Home() {
                       width={35}
                       height={35}
                       btnSize={"LG"}
-                      btnType={"NOTIFICATION"}
+                      btnType={unreadNotificationCount > 0 ? "NOTIFICATIONUNREAD" : "NOTIFICATION"}
                     />
                     <IconButton
                       onPress={() => handleComponentControlBtn("LOGOUT")}

@@ -1,4 +1,3 @@
-// message.service.ts
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 
@@ -19,9 +18,27 @@ export class MessageService {
     }
   }
 
+  async updateDisplayMessage(key: string, value: string): Promise<void> {
+    try {
+      const displayRef = this.database.ref('/display');
+
+      const snapshot = await displayRef.once('value');
+      const displayArray = snapshot.val();
+      displayArray.forEach((displayObject) => {
+        if (displayObject[key] !== undefined) {
+          displayObject[key] = value;
+        }
+      });
+      await displayRef.set(displayArray);
+    } catch (error) {
+      console.error('Error updating display message:', error);
+      throw error;
+    }
+  }
+
   private async sendToFirebase(text: string, timestamp: number): Promise<void> {
     try {
-      await this.database.ref('/messages').push({
+      await this.database.ref('/display').push({
         text,
         timestamp,
       });

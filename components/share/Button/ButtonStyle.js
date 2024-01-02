@@ -292,6 +292,31 @@ export default StyleSheet.create({
     }),
   },
 
+  notifyUnreadBtn: {
+    backgroundColor: "#ffffff",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 92,
+    height: 92,
+    borderRadius: 8,
+    position:'relative',
+
+    ...Platform.select({
+      ios: {
+        shadowColor: "blue",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+      },
+      android: {
+        shadowColor: "#191952",
+        elevation: 2,
+      },
+    }),
+  },
+
   footerIconBtn: {
     display: "flex",
     flexDirection: "column",

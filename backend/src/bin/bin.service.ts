@@ -13,19 +13,21 @@ export class BinService {
   async getBinData(): Promise<BinData[]> {
     try {
       const snapshot = await this.database.ref('/binData').once('value');
-      const binData: BinData[] = [];
-
+      // const binData: BinData[] = [];
+      const allBinData = [];
       snapshot.forEach((childSnapshot) => {
         const data = childSnapshot.val();
-        binData.push({
-          date: data.date,
-          time: data.time,
-          status: data.status,
-          percentage: data.percentage,
-        });
+        allBinData.push(data);
+        // binData.push({
+        //   date: data.date,
+        //   time: data.time,
+        //   status: data.status,
+        //   percentage: data.percentage,
+        // });
       });
 
-      return binData;
+      // return binData;
+      return allBinData;
     } catch (error) {
       console.error('Error fetching battery data:', error);
       throw error;

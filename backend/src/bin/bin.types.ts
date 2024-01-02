@@ -1,6 +1,6 @@
 export interface BinData {
-  date: string;
-  time: string;
-  status: string;
-  percentage: number;
+  Action: string;
+  Dustbin_Percentage: string;
+  Dustbin_Status: string;
+  current_Date_Time: number;
 }
