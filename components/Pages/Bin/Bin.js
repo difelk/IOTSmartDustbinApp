@@ -10,6 +10,7 @@ import Loader from "../../share/Loader";
 import CustomeLineCharts from "../../share/Charts/CustomLineCharts";
 import CalendarPicker from "react-native-calendar-picker";
 import AlertBox from "../../share/AlertBox";
+import EmptyData from "../../share/EmptyData";
 
 export default function Bin() {
   const [error, setError] = useState(null);
@@ -405,14 +406,14 @@ const [filteredOutData, setFilteredOutData] = useState()
                     alignItems: "baseline",
                   }}
                 >
-                  <Text style={BinStyle.lardgeTxt}>
+                  <Text style={binDetails.length || isLoading ? BinStyle.lardgeTxt : {fontSize: 20, fontWeight: 600, color: '#ffffff', marginTop: 8, marginBottom: 8}}>
                     {binDetails.length
                       ? binDetails[
                           binDetails.length - 1
                         ].Dustbin_Percentage.replace("%", "")
                       : isLoading
                       ? "Loading..."
-                      : ""}
+                      : "NO DATA TO DISPLAY"}
                   </Text>
                   {binDetails.length ? (
                     <Text style={BinStyle.perc}>%</Text>
@@ -491,6 +492,7 @@ const [filteredOutData, setFilteredOutData] = useState()
 
             <View style={BinStyle.columnWrap}>
               {!isLoading ? (
+                binDetails.length ? 
                 activeTab === "HISTORY" ? (
                   binDetails
                     .slice()
@@ -830,7 +832,9 @@ const [filteredOutData, setFilteredOutData] = useState()
                       )
                     }
                   </View>
-                )
+                ) : <View style={{display:'flex', flexDirection: 'row', alignItems:'center', justifyContent: 'center', width: '100%', margin: '0 auto'}}>
+                <EmptyData type={"EMPTY_DATA"} title={"No Bin Data to Display"} description={"no Bin data to display at the momment"}/>
+              </View>
               ) : (
                 <Loader />
               )}

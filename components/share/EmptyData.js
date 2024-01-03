@@ -38,13 +38,13 @@ export default function EmptyData({ type, title, description, width, height }) {
         source={emptyDataObj.icon}
         style={[
           styles.noticeIcon,
-          { width: width ?? 23, height: height ?? 23 },
+          { width: width ?? 50, height: height ?? 50 },
         ]}
       />
       <Text style={{ fontSize: 16, color: "gray", fontWeight: 600 }}>
         {emptyDataObj.title}
       </Text>
-      <Text style={{ fontSize: 8, color: "gray" }}>
+      <Text style={{ fontSize: 12, color: "gray" }}>
         {emptyDataObj.description}
       </Text>
     </View>
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
   center: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 18,
     width: "100%",
     marginTop: 20,
