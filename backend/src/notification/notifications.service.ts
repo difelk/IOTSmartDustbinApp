@@ -14,7 +14,6 @@ export class NotificationsService {
       const snapshot = await this.database
         .ref('/notificationData')
         .once('value');
-      console.log('snapshot - ', snapshot);
 
       return snapshot.val();
     } catch (error) {
