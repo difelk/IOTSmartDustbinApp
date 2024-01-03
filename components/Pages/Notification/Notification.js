@@ -3,15 +3,15 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Image,
   TouchableOpacity,
 } from "react-native";
 import ip from "../../../config/ipAddress.json";
 import Footer from "../../Footer/Footer";
 import IconButton from "../../share/Button/IconButton";
-import { colors } from "../../../styles/constants";
 import Header from "../../Header/Header";
+import EmptyData from "../../share/EmptyData";
+import Loader from "../../share/Loader";
 
 export default function Notification() {
   const notificationIcon = require("../../../assets/MailIcon.png");
@@ -19,22 +19,21 @@ export default function Notification() {
 
   const [selectedId, setSelectedId] = useState();
   const [notificationsData, setNotificationsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePress = async (id) => {
     setSelectedId(id);
-  
+
     await fetch(`http://${ip.ipAdress}:3000/notifications/view/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
-  
     getNotificationData();
   };
 
   const handleDeleteBtn = async (id) => {
-    console.log("handleDeleteBtn id - ", id);
     await fetch(`http://${ip.ipAdress}:3000/notifications/delete/${id}`, {
       method: "DELETE",
     });
@@ -42,17 +41,28 @@ export default function Notification() {
   };
 
   const getNotificationData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`http://${ip.ipAdress}:3000/notifications`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const notifications = await response.json();
-      setNotificationsData(notifications);
+  
+      const responseBody = await response.text();
+      if (responseBody.trim() !== "") {
+        const notifications = JSON.parse(responseBody);
+        setNotificationsData(notifications);
+      } else {
+        setNotificationsData([]);
+      }
+  
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching notifications:", error);
+      setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getNotificationData();
@@ -61,56 +71,89 @@ export default function Notification() {
   return (
     <>
       <Header />
-      <View style={styles.center}>
-        <Text style={styles.topicTxt}>Notification</Text>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.center}>
+          <Text style={styles.topicTxt}>Notification</Text>
 
-        {Object.keys(notificationsData).map((notificationId) => {
-          const item = notificationsData[notificationId];
-          return (
-            <TouchableOpacity
-              onPress={() => handlePress(notificationId)}
-              key={notificationId}
-            >
-              <View style={styles.parentBox}>
-                <View style={item.view ?  styles.notificationBox : [styles.notificationBox, styles.unreadNotificationBox]}>
-                  <View style={styles.iconBox}>
-                    <Image source={notificationIcon} style={styles.icon} />
-                  </View>
-                  <View style={styles.textBox}>
-                    <Text style={styles.headerTxt}>
-                      {item.Notification_Title}
-                    </Text>
-                    <Text style={styles.subTxt}>{item.current_Date_Time}</Text>
-                  </View>
-                </View>
-                <View
-                  style={
-                    selectedId === notificationId
-                      ? styles.collapseBox
-                      : [styles.collapseBox, styles.displayHide]
-                  }
+          {notificationsData && Object.keys(notificationsData).length ? (
+            Object.keys(notificationsData).map((notificationId) => {
+              const item = notificationsData[notificationId];
+              return (
+                <TouchableOpacity
+                  onPress={() => handlePress(notificationId)}
+                  key={notificationId}
                 >
-                  <Text style={styles.notifyDetails}>
-                    {item.Notification_Description}
-                  </Text>
-                  <IconButton
-                    key={1}
-                    onPress={() => handleDeleteBtn(notificationId)}
-                    buttonText={""}
-                    buttonIcon={deleteBinIcon}
-                    bgColor={"#FFFFFF"}
-                    txtColor={"#FFFFFF"}
-                    width={25}
-                    height={25}
-                    btnSize={"SM"}
-                    btnType={""}
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+                  <View style={styles.parentBox}>
+                    <View
+                      style={
+                        item.view
+                          ? styles.notificationBox
+                          : [
+                              styles.notificationBox,
+                              styles.unreadNotificationBox,
+                            ]
+                      }
+                    >
+                      <View style={styles.iconBox}>
+                        <Image source={notificationIcon} style={styles.icon} />
+                      </View>
+                      <View style={styles.textBox}>
+                        <Text style={styles.headerTxt}>
+                          {item.Notification_Title}
+                        </Text>
+                        <Text style={styles.subTxt}>
+                          {item.current_Date_Time}
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={
+                        selectedId === notificationId
+                          ? styles.collapseBox
+                          : [styles.collapseBox, styles.displayHide]
+                      }
+                    >
+                      <Text style={styles.notifyDetails}>
+                        {item.Notification_Description}
+                      </Text>
+                      <IconButton
+                        key={1}
+                        onPress={() => handleDeleteBtn(notificationId)}
+                        buttonText={""}
+                        buttonIcon={deleteBinIcon}
+                        bgColor={"#FFFFFF"}
+                        txtColor={"#FFFFFF"}
+                        width={25}
+                        height={25}
+                        btnSize={"SM"}
+                        btnType={""}
+                      />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              );
+            })
+          ) : (
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <EmptyData
+                type={"NOTIFICATION"}
+                title={"Empty Notifications"}
+                description={
+                  "Oops! It seems like there are no new notifications for you at the moment."
+                }
+              />
+            </View>
+          )}
+        </View>
+      )}
 
       <Footer txt={"Notification"} />
     </>
@@ -153,7 +196,7 @@ const styles = StyleSheet.create({
     width: 350,
   },
   unreadNotificationBox: {
-    backgroundColor: '#3c28a01a'
+    backgroundColor: "#3c28a01a",
   },
   iconBox: {
     marginRight: 20,
