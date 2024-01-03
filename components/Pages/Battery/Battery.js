@@ -11,6 +11,7 @@ import MyButton from "../../share/Button/Button";
 import CustomeLineCharts from "../../share/Charts/CustomLineCharts";
 import CalendarPicker from "react-native-calendar-picker";
 import RadioButton from "../../share/Button/RadioButton";
+import EmptyData from "../../share/EmptyData";
 
 export default function Battery() {
   const refreshIcon = require("../../../assets/refresh.png");
@@ -410,16 +411,16 @@ export default function Battery() {
                     alignItems: "baseline",
                   }}
                 >
-                  <Text style={BatteryStyle.lardgeTxt}>
+                  <Text style={batteryDetails.length || isLoading  ? BatteryStyle.lardgeTxt: {fontSize: 20, fontWeight: 600, color: '#ffffff', marginTop: 8, marginBottom: 8}}>
                     {batteryDetails.length
                       ? batteryDetails[
                           batteryDetails.length - 1
                         ].Battery_Percentage.replace("%", "")
                       : isLoading
                       ? "Loading..."
-                      : ""}
+                      : "NO DATA TO DISPLAY"}
                   </Text>
-                  <Text style={BatteryStyle.perc}> {isLoading ? "" : "%"}</Text>
+                  <Text style={BatteryStyle.perc}> {isLoading ? "" :batteryDetails.length ? "%" : ""}</Text>
                 </View>
                 <View style={{ position: "relative" }}>
                   <View style={BatteryStyle.graphpercBorder} />
@@ -485,8 +486,10 @@ export default function Battery() {
                 />
               </View>
             </View>
+        
             <View style={BatteryStyle.columnWrap}>
               {!isLoading ? (
+                batteryDetails.length ?
                 activeTab === "HISTORY" ? (
                   batteryDetails
                     .slice()
@@ -709,15 +712,6 @@ export default function Battery() {
                             horizontal={true}
                             style={{ zIndex: 20, width: "100%" }}
                           >
-                            {/* <View style={BatteryStyle.filterWrapper}>
-                              <View>
-                                <RadioButton
-                                  options={options}
-                                  selectedOption={selectedAnalysistOption}
-                                  onSelect={handleSelectOption}
-                                />
-                              </View>
-                            </View> */}
                           </ScrollView>
                           {chartData.datasets[0].data.length > 0 ? (
                             <CustomeLineCharts
@@ -738,7 +732,9 @@ export default function Battery() {
                       <Text>No Data To Show</Text>
                     )}
                   </View>
-                )
+                ) : <View style={{display:'flex', flexDirection: 'row', alignItems:'center', justifyContent: 'center', width: '100%', margin: '0 auto'}}>
+                  <EmptyData type={"EMPTY_DATA"} title={"No Battery Data to Display"} description={"no battery data to display at the momment"}/>
+                </View>
               ) : (
                 <Loader />
               )}

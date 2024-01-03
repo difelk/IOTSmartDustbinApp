@@ -44,7 +44,7 @@ export default function Home() {
   const [batteryData, setBatteryData] = useState([])
   const [binLevel, setBinLevel] = useState(0)
   const [binData, setBinData] = useState([])
-  const [unreadNotificationCount, setUnreadNotificationCount] = useState(0);
+  const [unreadNotificationCount, setUnreadNotificationCount] = useState(null);
 
 
 
@@ -253,12 +253,12 @@ export default function Home() {
                           />
                           <Text
                             style={{
-                              fontSize: 25,
-                              color: "#ffffff",
+                              fontSize:batteryLevel >= 0?  25 : 12,
+                              color:batteryLevel >= 0? "#ffffff" : "#9ab2ff",
                               fontWeight: "700",
                             }}
                           >
-                            {batteryLevel}%
+                            {batteryLevel >= 0 ?  batteryLevel + " %" : "no data found"}
                           </Text>
                         </View>
                         <View
@@ -296,12 +296,12 @@ export default function Home() {
                           />
                           <Text
                             style={{
-                              fontSize: 25,
-                              color: "#ffffff",
+                              fontSize:binData.length ? 25 : 12,
+                              color: binData.length ? "#ffffff" : "#9ab2ff",
                               fontWeight: "700",
                             }}
                           >
-                             {binData.length ?  binData[binData.length-1]?.Dustbin_Percentage: ''}
+                             {binData.length ?  binData[binData.length-1]?.Dustbin_Percentage: 'no data found'}
                           </Text>
                         </View>
                         <View
