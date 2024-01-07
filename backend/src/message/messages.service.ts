@@ -36,6 +36,25 @@ export class MessageService {
     }
   }
 
+
+  async updateDisplayShowValue(key: string, show: boolean): Promise<void> {
+    try {
+      const displayRef = this.database.ref('/display');
+
+      const snapshot = await displayRef.once('value');
+      const displayArray = snapshot.val();
+      displayArray.forEach((displayObject) => {
+        if (displayObject[key] !== undefined) {
+          displayObject.show = show;
+        }
+      });
+      await displayRef.set(displayArray);
+    } catch (error) {
+      console.error('Error updating display show value:', error);
+      throw error;
+    }
+  }
+
   private async sendToFirebase(text: string, timestamp: number): Promise<void> {
     try {
       await this.database.ref('/display').push({

@@ -29,4 +29,15 @@ export class MessagesController {
 
     return `Message updated: ${result}`;
   }
+
+  @Put('update-display-show')
+  async updateDisplayShow(
+    @Body() updateData: { key: string; show: boolean },
+  ): Promise<string> {
+    const { key, show } = updateData;
+
+    const result = await this.messagesService.updateDisplayShowValue(key, show);
+
+    return `${key} show value updated: ${result}`;
+  }
 }

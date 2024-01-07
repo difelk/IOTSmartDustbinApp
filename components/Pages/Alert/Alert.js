@@ -21,22 +21,49 @@ export default function AlertPage() {
     { binAlmostMsg: "", error: "" },
   ]);
 
-  const handleDisplayMessage = (type) => {
-    switch (type) {
-      case "SAVE_BATTERY":
-        break;
-      case "SAVE_BIN":
-        break;
-      case "SAVE_OTHER":
-        break;
-      case "SAVE_BATTERY_DEAD":
-        break;
-      case "SAVE_BIN_ALMOST":
-        break;
-      default:
-        break;
-    }
+  const handleDisplayMessage = (key, type) => {
+    const apiUrl = `http://${ip.ipAdress}:3000/messages/update-display-show`;
+    const showValue = true;
+  
+    fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ key, show: showValue }),
+    })
+      .then((response) => response.text())  // Change response.json() to response.text()
+      .then((result) => {
+        console.log('Result:', result);
+  
+        // Set a timeout to update the "show" value to false after 5 seconds
+        setTimeout(() => {
+          const apiUrlReset = `http://${ip.ipAdress}:3000/messages/update-display-show`;
+          const resetShowValue = false;
+  
+          fetch(apiUrlReset, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ key, show: resetShowValue }),
+          })
+            .then((responseReset) => responseReset.text())  // Change responseReset.json() to responseReset.text()
+            .then((resultReset) => {
+              console.log('Result after 5 seconds:', resultReset);
+            })
+            .catch((errorReset) => {
+              console.error('Error resetting show value:', errorReset.message);
+            });
+        }, 5000); // 5000 milliseconds (5 seconds)
+      })
+      .catch((error) => {
+        console.error('Error:', error.message);
+      });
   };
+  
+  
+  
 
   const sendDisplayData = async (key, value) => {
     const apiUrl = `http://${ip.ipAdress}:3000/messages/update-display`;
@@ -403,7 +430,7 @@ export default function AlertPage() {
                   style={{ marginBottom: 4 }}
                 />
                 <MyButton
-                  onPress={() => handleDisplayMessage("SAVE_OTHER")}
+                  onPress={() => handleDisplayMessage("customMsg")}
                   buttonText={"Display Now"}
                   buttonType={"SAVE_W_MT_5"}
                 />

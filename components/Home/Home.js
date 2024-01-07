@@ -117,6 +117,7 @@ export default function Home() {
       })
       .then((data) => {
         const dataArray = Array.isArray(data) ? data : [data];
+        console.log("dataArray - ", dataArray);
         setBinData(dataArray)
         if(dataArray.length){
           setBinLevel(parseInt(dataArray[dataArray.length - 1].Battery_Percentage));
@@ -301,6 +302,7 @@ export default function Home() {
                               fontWeight: "700",
                             }}
                           >
+                            {console.log("binData - ", binData)}
                              {binData.length ?  binData[binData.length-1]?.Dustbin_Percentage: 'no data found'}
                           </Text>
                         </View>

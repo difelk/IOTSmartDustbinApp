@@ -664,7 +664,7 @@ const [filteredOutData, setFilteredOutData] = useState()
                         </Text>
                         <Text style={{ color: "#ffffff" }}>
                         Percentage for Frequent Bin Fill:
-                          {frequentBinFillDetails?.averagePercentage85To100}%
+                          {frequentBinFillDetails?.averagePercentage85To100.toFixed(2)}%
                         </Text>
                         <Text style={{ color: "#ffffff" }}>
                           Data from:
